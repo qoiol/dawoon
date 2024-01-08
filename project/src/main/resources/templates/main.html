@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>main page</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:insert="~{header :: header}"></div>
+<section class="container text-center">
+    <br><br>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card center border-dark w-80">
+                <h3 class="card-header ">인기 수업 TOP 3</h3>
+                <div class="card-body">
+                    <ul th:each="ex : ${ex}" class="list-group list-group-flush">
+                            <li th:text="${ex.name}+${ex.type}+${ex.trainerName}" class="list-group-item" ><h4> </h4>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border-dark w-80" >
+                <h3 class="card-header">인기 강사 TOP 3</h3>
+                <div class="card-body">
+                    <ul th:each="tr:${tr}" class="list-group list-group-flush">
+                            <li th:text="${tr.name}" class="list-group-item" ></h4>
+                            </li>
+                        </th:each>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    <table>-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>#</th>-->
+<!--            <th>이름</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tr th:each="member : ${members}">-->
+<!--            <td th:text="${member.id}"/>-->
+<!--            <td th:text="${member.name}"/>-->
+<!--        </tr>-->
+<!--    </table>-->
+    <br>
+    <br>
+    <br>
+</section>
+<div th:insert="~{footer :: footer}"></div>
+</body>
+</html>

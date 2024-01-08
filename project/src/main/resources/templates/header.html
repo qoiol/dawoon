@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:fragment="header">
+    <header class="text-center"
+            style="background-color: #3F51B5; color: #FFFFFF;">
+        <div class="p-5 container">
+            <a th:href="@{/}"/><img src="/images/logo.png" style="width:190px; height:150px;"> </a>
+        </div>
+        <div style="background-color: #3A4BA7; color: #FFFFFF; font-size: 20px">
+            <div class="container p-3">
+                <div class="row">
+                    <div class="col" th:if="${userId == 'admin'}">
+                        <a style="text-decoration: none; color: inherit;"
+                           th:href="@{/admin}">관리자페이지</a>
+                    </div>
+                    <div class="col" th:if="${userType == 'trainer' }">
+                        <a style="text-decoration: none; color: inherit;"
+                           th:href="@{/trainer/exercise/form}">운동 예약</a>
+                    </div>
+                    <div class="col" th:if="${userType == 'user' }">
+                        <a style="text-decoration: none; color: inherit;"
+                           th:href="@{/exercise/list}">운동 예약</a>
+                    </div>
+                    <div class="col">
+                        <a style="text-decoration: none; color: inherit;"
+                           th:href="@{/exercise/timetable}">내 시간표</a>
+                    </div>
+                    <div class="col">
+                        <a style="text-decoration: none; color: inherit;"
+                           th:href="@{/review/list}">리뷰</a>
+                    </div>
+                    <div class="col">
+                        <a style="text-decoration: none; color: inherit;"
+                           th:href="@{/user/mypage}">마이페이지</a>
+                    </div>
+                    <div class="col">
+                        <a style="text-decoration: none; color: inherit;" onclick="return confirm('로그아웃하시겠습니까?')"
+                           th:href="@{/user/logout}">로그아웃</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+</body>
+</html>

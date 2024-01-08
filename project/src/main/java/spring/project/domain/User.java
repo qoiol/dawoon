@@ -1,9 +1,10 @@
 package spring.project.domain;
 
-public class Trainer {
+public class User {
     private String name;
+    private String userType;
 
-    public Trainer(String name) {
+    public User(String name) {
         this.name = name;
     }
 

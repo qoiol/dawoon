@@ -1,0 +1,31 @@
+package spring.project.Controller;
+
+public class LoginForm {
+    private String id;
+    private String password;
+    private String loginType;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(String loginType) {
+        this.loginType = loginType;
+    }
+}

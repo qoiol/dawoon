@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function login() {
+            if (form.userId.value == "") {
+                alert("사용자 ID를 입력하십시오.");
+                form.userId.focus();
+                return false;
+            }
+            if (form.password.value == "") {
+                alert("비밀번호를 입력하십시오.");
+                form.password.focus();
+                return false;
+            }
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+<div th:insert="~{header :: header}"></div>
+<section class="container mt-3" style="max-width: 560px;">
+    <div class="col-lg-12" style="text-align: center">
+        <h6 class="text-danger" th:if="${loginFailed}" th:text="${exception.getMessage()}"/>
+    </div>
+    <form name="form" method="POST" th:action="@{/user/login}">
+        <div class="form-group" id="loginType">
+            <label for="loginType"></label>
+            <div class="form-check form-check-inline">
+                <input value="trainer" class="form-check-input" type="radio" name="loginType" id="flexRadioDefault1"
+                       checked>
+                <label class="form-check-label" for="flexRadioDefault1"> 강사 </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input value="user" class="form-check-input" type="radio" name="loginType" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2"> 회원 </label>
+            </div>
+        </div>
+        <div class="form-group" id="userId">
+            <label for="userId">아이디</label>
+            <input type="text" name="userId" class="form-control" placeholder="아이디">
+        </div>
+        <div class="form-group" id="password">
+            <label for="password">비밀번호</label>
+            <input type="password" name="password" class="form-control" placeholder="비밀번호">
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" value="로그인" onClick="login()">
+            <a th:href="@{/user/create}" class="btn btn-link">회원 가입</a>
+        </div>
+    </form>
+</section>
+<div th:insert="~{footer :: footer}"></div>
+</body>
+</html>

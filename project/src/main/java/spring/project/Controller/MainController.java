@@ -20,6 +20,7 @@ public class MainController {
 
     @GetMapping("/main") //메인페이지
     public String mainPage(Model model){
+
         List<Exercise> ex = new ArrayList<>();
 
         //top3 인기 운동 조회

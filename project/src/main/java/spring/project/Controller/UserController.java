@@ -48,7 +48,6 @@ public class UserController {
             return "/user/create";
         }
 
-
         User user = new User();
         user.setId(createForm.getId());
         user.setEmail(createForm.getEmail());

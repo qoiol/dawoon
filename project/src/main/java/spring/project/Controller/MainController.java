@@ -13,21 +13,21 @@ import java.util.List;
 
 @Controller
 public class MainController {
-    @GetMapping("/")
+    @GetMapping("/") //메인페이지로 이동
     public String index(){
         return "redirect:main";
     }
-    @GetMapping("/main")
+
+    @GetMapping("/main") //메인페이지
     public String mainPage(Model model){
+
         List<Exercise> ex = new ArrayList<>();
-        ex.add(new Exercise("요가 초급", "요가", "개쩌는강사"));
-        ex.add(new Exercise("단체 유산소", "헬스", "별로강사"));
-        ex.add(new Exercise("단체 수영", "수영", "착한강사"));
+
+        //top3 인기 운동 조회
 
         List<User> tr = new ArrayList<>();
-//        tr.add(new User("개쩌는강사"));
-//        tr.add(new User("별로강사"));
-//        tr.add(new User("착한강사"));
+
+        //top3 인기 강사 조회
 
         model.addAttribute("ex", ex);
         model.addAttribute("tr", tr);

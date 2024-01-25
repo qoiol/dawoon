@@ -36,7 +36,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public void login(User user){
+    public User login(User user){
         Optional<User> result = userRepository.findById(user.getId());
 
         if(!result.isPresent()){
@@ -49,5 +49,6 @@ public class UserService {
                     }
                 }
         );
+        return result.get();
     }
 }

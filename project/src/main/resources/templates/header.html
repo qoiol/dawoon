@@ -15,11 +15,11 @@
         <div style="background-color: #3A4BA7; color: #FFFFFF; font-size: 20px">
             <div class="container p-3">
                 <div class="row">
-                    <div class="col" th:if="${userId == 'admin'}">
+                    <div class="col" th:if="${session.userId == 'admin'}">
                         <a style="text-decoration: none; color: inherit;"
                            th:href="@{/admin}">관리자페이지</a>
                     </div>
-                    <div class="col" th:if="${userType == 'trainer' }">
+                    <div class="col" th:if="${session.userType == 'trainer' }">
                         <a style="text-decoration: none; color: inherit;"
                            th:href="@{/trainer/exercise/form}">운동 예약</a>
                     </div>
@@ -39,15 +39,15 @@
                         <a style="text-decoration: none; color: inherit;"
                            th:href="@{/user/mypage}">마이페이지</a>
                     </div>
-                    <div class="col" th:if="${userId != null}">
+                    <div class="col" th:if="${session.userId != null}">
                         <a style="text-decoration: none; color: inherit;" onclick="return confirm('로그아웃하시겠습니까?')"
                            th:href="@{/user/logout}">로그아웃</a>
                     </div>
-                    <div class="col" th:if="${userId == null}">
+                    <div class="col" th:if="${session.userId == null}">
                         <a style="text-decoration: none; color: inherit;"
                            th:href="@{/user/login/form}">로그인</a>
                     </div>
-                    <div class="col" th:if="${userId == null}">
+                    <div class="col" th:if="${session.userId == null}">
                         <a style="text-decoration: none; color: inherit;"
                            th:href="@{/user/create/form}">회원가입</a>
                     </div>

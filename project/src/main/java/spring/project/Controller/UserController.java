@@ -1,5 +1,6 @@
 package spring.project.Controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,20 +23,40 @@ public class UserController {
     public String loginForm(){
         return "/user/login";
     }
+
     @PostMapping("/user/login") //로그인
-    public String login(LoginForm loginForm, Model model){
+    public String login(HttpSession session, LoginForm loginForm, Model model){
         //로그인 기능 구현
+        User loginUser = new User();
+        loginUser.setId(loginForm.getId());
+        loginUser.setPassword(loginForm.getPassword());
+
+        try{
+            loginUser = userService.login(loginUser);
+        }catch (Exception e){
+            model.addAttribute("exception", true);
+            model.addAttribute("message", e.getMessage());
+            return "/user/login";
+        }
+
+        session.setAttribute("userId", loginUser.getId());
+        session.setAttribute("userType", loginUser.getUserType());
+        session.setMaxInactiveInterval(3600);
+
         return "redirect:/";
     }
+
     @GetMapping("/user/logout") //로그아웃 -> 메인페이지로
-    public String logout(Model model){
-        model.addAttribute("userId", null);
+    public String logout(HttpSession httpSession){
+        httpSession.invalidate();
         return "redirect:/";
     }
+
     @GetMapping("/user/create/form") //회원가입 화면으로 이동
     public String createForm(){
         return "/user/create";
     }
+
     @PostMapping("/user/create") //회원가입
     public String create(CreateForm createForm, Model model){
         System.out.println("create");
@@ -43,8 +64,8 @@ public class UserController {
         try{
             userService.validateDuplicateUser(createForm.getId());
         }catch (Exception e){
-            model.addAttribute("registerFailed", true);
-            model.addAttribute("exception", e.getMessage());
+            model.addAttribute("exception", true);
+            model.addAttribute("message", e.getMessage());
             return "/user/create";
         }
 

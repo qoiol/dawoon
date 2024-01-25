@@ -59,7 +59,6 @@ public class UserController {
 
     @PostMapping("/user/create") //회원가입
     public String create(CreateForm createForm, Model model){
-        System.out.println("create");
 
         try{
             userService.validateDuplicateUser(createForm.getId());
@@ -75,8 +74,6 @@ public class UserController {
         user.setUserType(createForm.getUserType());
         user.setPassword(createForm.getPassword());
         user.setName(createForm.getName());
-
-        System.out.println("user.getId() = " + user.getId());
 
         userService.join(user);
 

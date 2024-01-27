@@ -8,14 +8,8 @@ public class MemoryWorkoutRepository implements WorkoutRepository{
 
     //저장
     @Override
-    public Workout save(Workout workout) {
-        workout.setWorkoutId(workout.getWorkoutId());
-        workout.setWorkoutName(workout.getWorkoutName());
-        workout.setWorkoutType(workout.getWorkoutType());
-        workout.setWorkoutDifficulty(workout.getWorkoutDifficulty());
-        workout.setTrainerId(workout.getTrainerId());
-        workout.setTrainerName(workout.getTrainerName());
-        return workout;
+    public Workout add(Workout workout) {
+        return null;
     }
 
     @Override
@@ -24,7 +18,12 @@ public class MemoryWorkoutRepository implements WorkoutRepository{
     }
 
     @Override
-    public Workout delete(Workout workout) {
+    public Workout deleteByWorkoutId(int workoutId) {
+        return null;
+    }
+
+    @Override
+    public Workout findByWorkoutId(int workoutId) {
         return null;
     }
 

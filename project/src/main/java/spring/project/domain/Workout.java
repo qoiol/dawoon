@@ -2,15 +2,13 @@ package spring.project.domain;
 
 public class Workout {
     private int workoutId;
-    private String workoutName;
     private String workoutType;
     private String workoutDifficulty;
     private String trainerId;
     private String trainerName;
 
-    public Workout(int workoutId, String workoutName, String workoutType, String workoutDifficulty, String trainerId, String trainerName) {
+    public Workout(int workoutId, String workoutType, String workoutDifficulty, String trainerId, String trainerName) {
         this.workoutId = workoutId;
-        this.workoutName = workoutName;
         this.workoutType = workoutType;
         this.workoutDifficulty = workoutDifficulty;
         this.trainerId = trainerId;
@@ -23,14 +21,6 @@ public class Workout {
 
     public void setWorkoutId(int workoutId) {
         this.workoutId = workoutId;
-    }
-
-    public String getWorkoutName() {
-        return workoutName;
-    }
-
-    public void setWorkoutName(String workoutName) {
-        this.workoutName = workoutName;
     }
 
     public String getWorkoutType() {

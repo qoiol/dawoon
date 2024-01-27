@@ -6,6 +6,7 @@ import java.util.List;
 
 public class MemoryWorkoutRepository implements WorkoutRepository{
 
+    //저장
     @Override
     public Workout save(Workout workout) {
         workout.setWorkoutId(workout.getWorkoutId());

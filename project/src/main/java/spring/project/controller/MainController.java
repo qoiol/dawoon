@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import spring.project.domain.Exercise;
 import spring.project.domain.User;
+import spring.project.repository.MemoryUserRepository;
+import spring.project.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;

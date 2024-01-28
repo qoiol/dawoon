@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>운동 검색</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+    </script>
+
+</head>
+
+<body>
+
+<div th:insert="~{header :: header}"></div>
+
+<section class="container">
+
+    <!-- 운동 검색 폼 -->
+    <form method="get" action="/workout/search" class="form-inline mt-3">
+
+        <select name="trainerId" class="form-control mx-1 mt-2">
+            <option value="">강사</option>
+            <th:block th:each="trainer : ${trainerList}">
+                <option th:value="${trainer.userId}" th:selected="${trainer.userId eq trainerId}">
+                    ${trainer.name}
+                </option>
+            </th:block>
+        </select>
+
+        <select name="workoutDifficulty" class="form-control mx-1 mt-2">
+            <option value="">난이도</option>
+            <option th:value="상" th:selected="${workoutDifficulty eq '상'}">상</option>
+            <option th:value="중" th:selected="${workoutDifficulty eq '중'}">중</option>
+            <option th:value="하" th:selected="${workoutDifficulty eq '하'}">하</option>
+        </select>
+
+        <select name="workoutType" class="form-control mx-1 mt-2">
+            <option value="">운동 종류</option>
+            <option th:value="수영" th:selected="${workoutType eq '수영'}">수영</option>
+            <option th:value="헬스" th:selected="${workoutType eq '헬스'}">헬스</option>
+            <option th:value="필라테스" th:selected="${workoutType eq '필라테스'}">필라테스</option>
+            <option th:value="PT" th:selected="${workoutType eq 'PT'}">PT</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
+    </form>
+
+    <div class="col-lg-12 text-center text-danger" th:if="${#lists.isEmpty(workoutList)}">
+        <br>검색 결과가 없습니다.
+    </div>
+
+    <div th:each="workout : ${workoutList}" class="card bg-light mt-3">
+        <div class="card-header bg-light">
+            <div class="col-10 text-left">
+                <h5 th:text="${workout.workoutName}"></h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <span class="col-10 text-left" th:text="'운동 종류 : ' + ${workout.workoutType}"></span>
+            <span class="col-10 text-left" style="color: green;"
+                  th:text="'( 난이도 : ' + ${workout.workoutDifficulty} + ' )'"></span>
+            <span class="col-10 text-left" th:text="'담당 강사 : ' + ${workout.trainerName}"></span>
+
+            <span class="col-10">
+                <a onclick="return confirm('등록하시겠습니까?')" class="btn btn-primary"
+                   th:href="@{/workout/reservation(workoutId=${workout.workoutId})}">
+                    등록하기
+                </a>
+            </span>
+        </div>
+    </div>
+</section>
+
+<!-- 	<ul class="pagination justify-content-center mt-3"> -->
+<%--
+<li class="page-item">
+    <c:if test="${reviewList.size() le 0 }"> --%>
+        <!-- 				<a class="page-link disabled">이전</a> -->
+        <%--
+    </c:if>
+    <c:if test="${reviewList.size() gt 0 }"> --%>
+        <!-- 				<a class="page-link" -->
+        <%-- href="
+        <c:url value='/review/list'>
+            <c:param name='currentPage' value='${currentPage-1 }'/>
+            --%>
+            <%--
+            <c:param name='orderType' value='${orderType }'/>
+        </c:url>
+        ">이전</a> --%>
+
+        <%--
+    </c:if>
+</li>
+--%>
+
+<%--
+<li>
+    <c:if test="${reviewList.size() lt 6 }"> --%>
+        <!-- 				<a class="page-link disabled">다음</a> -->
+        <%--
+    </c:if>
+    <c:if test="${reviewList.size() ge 6 }"> --%>
+        <!-- 				<a class="page-link" -->
+        <%-- href="
+        <c:url value='/review/list'>
+            <c:param name='currentPage' value='${currentPage +1 }'/>
+            --%>
+            <%--
+            <c:param name='orderType' value='${orderType }'/>
+        </c:url>
+        ">다음</a> --%>
+        <%--
+    </c:if>
+</li>
+--%>
+
+<!-- 	</ul> -->
+
+<div th:insert="~{footer :: footer}"></div>
+
+<th:block th:if="${reservationFailed}">
+    <script th:inline="javascript">
+        <![CDATA[
+        if (confirm('[[${exception}]]')) {
+            window.location.href = '/';
+        }
+        ]]>
+    </script>
+</th:block>
+
+</body>
+</html>

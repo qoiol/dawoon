@@ -1,4 +1,4 @@
-package spring.project.Controller;
+package spring.project.controller;
 
 public class LoginForm {
     private String id;

@@ -1,4 +1,4 @@
-package spring.project.Controller;
+package spring.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

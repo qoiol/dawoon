@@ -15,7 +15,7 @@ public class MainController {
     public String index(){
         return "redirect:main";
     }
-
+    //아무거나
     @GetMapping("/main") //메인페이지
     public String mainPage(Model model){
 

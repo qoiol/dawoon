@@ -1,4 +1,4 @@
-package spring.project.Controller;
+package spring.project.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

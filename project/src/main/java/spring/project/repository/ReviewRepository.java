@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReviewRepository {
-    public Review findById(Long id);
-    public List<Review> findAll();
-    public Optional<List<Review>> findByWorkoutId();
+    void save(Review review);
+    Optional<Review> findById(Long id);
+    List<Review> findAll();
+    void deleteById(Long id);
 }

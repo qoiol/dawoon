@@ -3,10 +3,7 @@ package spring.project.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import spring.project.domain.Exercise;
-import spring.project.domain.User;
-
-import java.util.ArrayList;
+import spring.project.domain.Workout
 import java.util.List;
 
 @Controller
@@ -19,7 +16,7 @@ public class MainController {
     @GetMapping("/main") //메인페이지
     public String mainPage(Model model){
 
-        List<Exercise> ex = new ArrayList<>();
+        List<Workout> ex = new ArrayList<>();
 
         //top3 인기 운동 조회
 

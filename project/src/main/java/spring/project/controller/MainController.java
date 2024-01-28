@@ -3,10 +3,9 @@ package spring.project.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import spring.project.domain.Exercise;
 import spring.project.domain.User;
-import spring.project.repository.MemoryUserRepository;
-import spring.project.repository.UserRepository;
+import spring.project.domain.Workout;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +19,9 @@ public class MainController {
     //아무거나
     @GetMapping("/main") //메인페이지
     public String mainPage(Model model){
+        List<Workout> ex = new ArrayList<>();
 
-        List<Exercise> ex = new ArrayList<>();
+
 
         //top3 인기 운동 조회
 

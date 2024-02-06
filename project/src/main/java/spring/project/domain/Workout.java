@@ -7,14 +7,6 @@ public class Workout {
     private String trainerId;
     private String trainerName;
 
-    public Workout(int workoutId, String workoutType, String workoutDifficulty, String trainerId, String trainerName) {
-        this.workoutId = workoutId;
-        this.workoutType = workoutType;
-        this.workoutDifficulty = workoutDifficulty;
-        this.trainerId = trainerId;
-        this.trainerName = trainerName;
-    }
-
     public int getWorkoutId() {
         return workoutId;
     }

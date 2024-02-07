@@ -4,9 +4,7 @@ import org.springframework.stereotype.Repository;
 import spring.project.domain.Likey;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class MemoryLikeyRepository implements LikeyRepository{

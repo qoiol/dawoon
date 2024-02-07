@@ -1,11 +1,13 @@
 package spring.project.repository;
 
+import org.springframework.stereotype.Repository;
 import spring.project.domain.Review;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+@Repository
 public class MemoryReviewRepository implements ReviewRepository {
     private static Map<Long, Review> store = new HashMap<>();
     private static long seq = 0L;

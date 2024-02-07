@@ -27,7 +27,7 @@
         </select>
         <select name="orderType" class="form-control mx-1 mt-2">
             <option value="r.id">최신순</option>
-            <option value="r.likeCount" th:selected="${orderType eq r.likeCount}">추천순</option>
+            <option value="r.likeCount" th:selected="${session.orderType eq 'r.likeCount'}">추천순</option>
         </select>
         <input type="text" name="searchContent" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요"
                th:text="${session.searchContent}">
@@ -40,12 +40,11 @@
     </div>
 
     <div class="card bg-light mt-3" th:each="review : ${reviewList}">
-
         <div class="card-header bg-light">
             <div class="row">
-                <div class="col-8 text-left">${review.getWorkoutName() }
-                    &nbsp;<small>${review.getTrainerName() }</small> &nbsp;<small
-                            style="color: grey">${review.getPostedDate() }</small>
+                <div class="col-8 text-left" th:text="${review.getWorkoutName() }">
+                    <small th:text="${review.getTrainerName() }"/> <small th:text="${review.getPostedDate()}"
+                                                                          style="color: grey"/>
                 </div>
             </div>
         </div>
@@ -53,7 +52,7 @@
             <div class="card-title">
                 <div
                         style="vertical-align: middle; display: flex; align-items: center;">
-                    <h5 style="display: inline-block; margin: auto 0">${review.getTitle() }&nbsp;</h5>
+                    <h5 style="display: inline-block; margin: auto 0" th:text="${review.getTitle() }"/>
                     <div style="display: inline-block; margin: auto 0"
                          class="wrap-star">
 
@@ -63,24 +62,24 @@
                     </div>
                 </div>
             </div>
-            <p class="card-text">${review.getContent() }</p>
+            <p class="card-text" th:text="${review.getContent() }"/>
             <div class="row" style="margin: 0; width: 100%; float: right;">
 
                 <div class="col-9 text-left">
-							<span style="color: green;">( 추천수 : ${review.getLikeCount() } ) &nbsp; <a
-                                    th:href="@{/review/like(id=${review.getId())}">추천&nbsp;</a>
+							<span style="color: green;"
+                                  th:text="'( 추천수 : ' + ${review.getLikeCount()} + ' )'"> &nbsp; <a
+                                    th:href="@{/review/{reviewId}/${review.getId()}}">추천&nbsp;</a>
 							</span>
                 </div>
 
                 <div class="col-3 text-right">
-                    <a data-toggle="modal" class="btn btn-warning" ranking(rankCd=${rankCd}, bordSeq=${bordSeq}
-                       data-target="#reportModal"
-                       th:onclick="report(a=${review.getTitle() +'(작성자: '+review.getUserId()+')' }, b=${review.getReviewId()})">신고</a>
+                    <a data-toggle="modal" class="btn btn-warning" data-target="#reportModal"
+                       th:onclick="report(a=${review.getTitle() +'(작성자: '+review.getUserId()+')' }, b=${review.getId()})">신고</a>
 
                     <!-- 작성자==현재로그인유저 일 경우 삭제버튼 표시 -->
                     <a class="btn btn-danger" th:if="${userId eq review.getUserId()}"
                        onclick="return confirm('삭제하시겠습니까?')"
-                       th:href="@{/review/delete(reviewId=${review.getReviewId()}}">삭제</a>
+                       th:href="@{/review/{id}(id=${review.getId()}}">삭제</a>
                 </div>
             </div>
         </div>
@@ -107,8 +106,9 @@
                         <div class="form-group col-sm-6">
                             <label>운동 선택</label>
                             <select id="workoutId" name="workoutId" class="form-control">
-                                <option th:each="ex : ${wList}" th:text="${ex.toString()}"
-                                        value="${ex.getExerciseId()}"/>
+                                <option th:each="w : ${wList}"
+                                        th:text="${w.getWorkoutType() + '-' + w.getTrainerName()}"
+                                        value="${w.getWorkoutId()}"/>
                             </select>
                         </div>
                     </div>
@@ -119,7 +119,8 @@
 
                     <div class="form-group">
                         <label>내용</label>
-                        <textarea name="content" class="form-control" maxlength="2048" style="height: 180px;"></textarea>
+                        <textarea name="content" class="form-control" maxlength="2048"
+                                  style="height: 180px;"></textarea>
                     </div>
 
                     <div class="form-row">
@@ -165,9 +166,9 @@
                     <div class="form-group">
                         <div class="col-xs-4">
                             <label>신고할 리뷰</label>
-                            <input id="rrt" type="text" name="reportReviewTitle" class="form-control" maxlength="60"
+                            <input id="rrt" type="text" name="reviewTitle" class="form-control" maxlength="60"
                                    value=" ">
-                            <input id="rri" type="hidden" name="reportReviewId" value=" ">
+                            <input id="rri" type="hidden" name="reviewId" value=" ">
                         </div>
                     </div>
                     <div class="form-group">

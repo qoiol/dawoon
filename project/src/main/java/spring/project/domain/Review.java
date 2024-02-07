@@ -10,6 +10,19 @@ public class Review {
     private int score;
     private int likeCount;
     private String postedDate;
+    private String workoutName;
+
+    public String getWorkoutName() {
+        return workoutName;
+    }
+
+    public void setWorkoutName(String workoutName) {
+        this.workoutName = workoutName;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getId() {
         return id;

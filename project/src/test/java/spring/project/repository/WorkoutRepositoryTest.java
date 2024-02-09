@@ -1,5 +1,6 @@
 package spring.project.repository;
 
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class WorkoutRepositoryTest {
 
     @Autowired
-    private WorkoutService workoutService;
+    private WorkoutRepository workoutRepository;
+
+    private WorkoutService workoutService = new WorkoutService(workoutRepository);
 
     @Test
     public void testAdd(){

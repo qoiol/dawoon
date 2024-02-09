@@ -1,6 +1,7 @@
 package spring.project.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.User;
 import spring.project.repository.MemoryUserRepository;
 import spring.project.repository.UserRepository;
@@ -8,7 +9,8 @@ import spring.project.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+//@Service
+@Transactional // <- jpa 사용하면 service 대신 붙여줘야함
 public class UserService {
     private final UserRepository userRepository;
 

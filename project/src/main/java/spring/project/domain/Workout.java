@@ -14,6 +14,15 @@ public class Workout {
     private String workoutDifficulty;
     private String trainerId;
     private String trainerName;
+    private String workoutName;
+
+    public String getWorkoutName() {
+        return workoutName;
+    }
+
+    public void setWorkoutName(String workoutName) {
+        this.workoutName = workoutName;
+    }
 
     public long getWorkoutId() {
         return workoutId;

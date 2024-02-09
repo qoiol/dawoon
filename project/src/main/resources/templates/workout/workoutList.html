@@ -26,14 +26,14 @@
     <!-- 운동 검색 폼 -->
     <form method="get" action="/workout/search" class="form-inline mt-3">
 
-        <select name="trainerId" class="form-control mx-1 mt-2">
-            <option value="">강사</option>
-            <th:block th:each="trainer : ${trainerList}">
-                <option th:value="${trainer.userId}" th:selected="${trainer.userId eq trainerId}">
-                    ${trainer.name}
-                </option>
-            </th:block>
-        </select>
+<!--        <select name="trainerId" class="form-control mx-1 mt-2">-->
+<!--            <option value="">강사</option>-->
+<!--            <th:block th:each="trainer : ${trainerList}">-->
+<!--                <option th:value="${trainer.userId}" th:selected="${trainer.userId eq trainerId}">-->
+<!--                    ${trainer.name}-->
+<!--                </option>-->
+<!--            </th:block>-->
+<!--        </select>-->
 
         <select name="workoutDifficulty" class="form-control mx-1 mt-2">
             <option value="">난이도</option>
@@ -44,14 +44,18 @@
 
         <select name="workoutType" class="form-control mx-1 mt-2">
             <option value="">운동 종류</option>
-            <option th:value="수영" th:selected="${workoutType eq '수영'}">수영</option>
             <option th:value="헬스" th:selected="${workoutType eq '헬스'}">헬스</option>
             <option th:value="필라테스" th:selected="${workoutType eq '필라테스'}">필라테스</option>
+            <option th:value="수영" th:selected="${workoutType eq '수영'}">수영</option>
             <option th:value="PT" th:selected="${workoutType eq 'PT'}">PT</option>
         </select>
 
         <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
+
+
     </form>
+
+    <button class="btn btn-primary mx-1 mt-2" onclick="window.location.href='/workout/add'">운동 등록</button>
 
     <div class="col-lg-12 text-center text-danger" th:if="${#lists.isEmpty(workoutList)}">
         <br>검색 결과가 없습니다.
@@ -60,7 +64,7 @@
     <div th:each="workout : ${workoutList}" class="card bg-light mt-3">
         <div class="card-header bg-light">
             <div class="col-10 text-left">
-                <h5 th:text="${workout.workoutType}"> : </h5>
+                <h5 th:text="${workout.workoutName}"></h5>
             </div>
         </div>
         <div class="card-body">

@@ -29,8 +29,8 @@ public interface WorkoutRepository {
     Optional<Workout> findById(long workoutId);
 
 
-//    //특정 키워드로 Workout 리스트 검색
-//    //@Query("SELECT w FROM Workout w WHERE keyword LIKE %:keyword%")
-//    List<Workout> findWorkoutByKeyword(String keyword);
+    //특정 키워드로 Workout 리스트 검색
+    //@Query("SELECT w FROM Workout w WHERE keyword LIKE %:keyword%")
+    List<Workout> findByKeyword(String workoutDifficulty, String workoutType);
 
 }

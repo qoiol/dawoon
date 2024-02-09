@@ -7,8 +7,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-
+    <script th:if="${reservationFailed}" th:inline="javascript">
+        <![CDATA[
+        if (confirm('[[${exception}]]')) {
+            window.location.href = '/';
+        }
+        ]]>
     </script>
 
 </head>
@@ -56,7 +60,7 @@
     <div th:each="workout : ${workoutList}" class="card bg-light mt-3">
         <div class="card-header bg-light">
             <div class="col-10 text-left">
-                <h5 th:text="${workout.workoutName}"></h5>
+                <h5 th:text="${workout.workoutType}"> : </h5>
             </div>
         </div>
         <div class="card-body">
@@ -75,63 +79,27 @@
     </div>
 </section>
 
-<!-- 	<ul class="pagination justify-content-center mt-3"> -->
-<%--
-<li class="page-item">
-    <c:if test="${reviewList.size() le 0 }"> --%>
-        <!-- 				<a class="page-link disabled">이전</a> -->
-        <%--
-    </c:if>
-    <c:if test="${reviewList.size() gt 0 }"> --%>
-        <!-- 				<a class="page-link" -->
-        <%-- href="
-        <c:url value='/review/list'>
-            <c:param name='currentPage' value='${currentPage-1 }'/>
-            --%>
-            <%--
-            <c:param name='orderType' value='${orderType }'/>
-        </c:url>
-        ">이전</a> --%>
-
-        <%--
-    </c:if>
-</li>
---%>
-
-<%--
-<li>
-    <c:if test="${reviewList.size() lt 6 }"> --%>
-        <!-- 				<a class="page-link disabled">다음</a> -->
-        <%--
-    </c:if>
-    <c:if test="${reviewList.size() ge 6 }"> --%>
-        <!-- 				<a class="page-link" -->
-        <%-- href="
-        <c:url value='/review/list'>
-            <c:param name='currentPage' value='${currentPage +1 }'/>
-            --%>
-            <%--
-            <c:param name='orderType' value='${orderType }'/>
-        </c:url>
-        ">다음</a> --%>
-        <%--
-    </c:if>
-</li>
---%>
-
-<!-- 	</ul> -->
 
 <div th:insert="~{footer :: footer}"></div>
 
-<th:block th:if="${reservationFailed}">
-    <script th:inline="javascript">
-        <![CDATA[
-        if (confirm('[[${exception}]]')) {
-            window.location.href = '/';
-        }
-        ]]>
-    </script>
-</th:block>
 
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>리스트</title>-->
+<!--    <link rel="stylesheet"-->
+<!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--    <script-->
+<!--            src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <script-->
+<!--            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:insert="~{header :: header}"></div>-->
+<!--<div th:insert="~{footer :: footer}"></div>-->
+<!--</body>-->
+<!--</html>-->

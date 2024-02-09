@@ -1,17 +1,25 @@
 package spring.project.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Workout {
-    private int workoutId;
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long workoutId;
     private String workoutType;
     private String workoutDifficulty;
     private String trainerId;
     private String trainerName;
 
-    public int getWorkoutId() {
+    public long getWorkoutId() {
         return workoutId;
     }
 
-    public void setWorkoutId(int workoutId) {
+    public void setWorkoutId(long workoutId) {
         this.workoutId = workoutId;
     }
 

@@ -2,23 +2,35 @@ package spring.project.repository;
 
 import org.hibernate.jdbc.Work;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import spring.project.domain.Workout;
 
 import java.util.List;
-
-@Repository
-public interface WorkoutRepository extends JpaRepository<Workout, Integer> {
-
-    //workoutId로 검색
-    Workout findByWorkoutId(int workoutId);
-
-    //userId로 검색해서 Mypage에서 쓸거
-    List<Workout> findByUserId(String userId);
-
-    //특정 키워드로 Workout 리스트 검색
-    List<Workout> findByKeyword(String keyword);
+import java.util.Optional;
 
 
+public interface WorkoutRepository {
+
+    //저장
+    Workout save(Workout workout);
+
+    //삭제
+    void delete(Workout workout);
+
+    //수정
+    Workout update(Workout workout);
+
+    //전체 리스트 가져오기
+    List<Workout> findAll();
+
+    //workoutId로 Workout 엔티티 검색
+    Optional<Workout> findById(long workoutId);
+
+
+//    //특정 키워드로 Workout 리스트 검색
+//    //@Query("SELECT w FROM Workout w WHERE keyword LIKE %:keyword%")
+//    List<Workout> findWorkoutByKeyword(String keyword);
 
 }

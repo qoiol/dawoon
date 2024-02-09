@@ -1,5 +1,6 @@
 package spring.project.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -8,20 +9,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.*;
+import spring.project.domain.User;
 import spring.project.domain.Workout;
+import spring.project.service.UserService;
 import spring.project.service.WorkoutService;
 
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 //@RequestMapping("/workout")
 public class WorkoutController {
 
     private final WorkoutService workoutService;
+    private final UserService userService;
 
     @Autowired
-    public WorkoutController(WorkoutService workoutService) {
+    public WorkoutController(WorkoutService workoutService, UserService userService) {
         this.workoutService = workoutService;
+        this.userService = userService;
     }
 
     //전체 Workout 리스트를 가져와서 "list"뷰에 전달하는 메소드
@@ -46,9 +53,16 @@ public class WorkoutController {
 
     //운동 추가 하기 , 됨
     @PostMapping("/workout/add")
-    public String addWorkout(Workout workout){
+    public String addWorkout(Workout workout, HttpServletRequest request){
+        String trainerId = (String)request.getSession().getAttribute("userId");
+        Optional<User> user = userService.findOne(trainerId);
+
+
+        workout.setTrainerName(user.get().getName());
+
         //workoutService를 사용하여 workout에 추가
         workoutService.addWorkout(workout);
+
         return "redirect:/workout/list";
     }
 

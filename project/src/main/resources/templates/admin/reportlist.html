@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>신고 목록</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <br>
+    <h4>신고 목록</h4>
+    <br>
+    <table class="table table-bordered">
+        <thead class="thead-inverse">
+        <tr>
+            <td>신고자 ID</td>
+            <td>신고된 리뷰 ID</td>
+            <td>신고 사유</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="report : ${reportlist}">
+                <td th:text="${report.getUserId}" />
+                <td> <a th:href="@{/admin/report/{reviewId}(reviewId=${report.getReviewId()})}" th:value="${report.getReviewId()}" /> </td>
+                <td th:text="${report.getReportReason()}" />
+            </tr>
+        </tbody>
+    </table>
+    <br>
+</div>
+</body>
+</html>

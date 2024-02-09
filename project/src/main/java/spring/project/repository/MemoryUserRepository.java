@@ -6,7 +6,7 @@ import spring.project.domain.User;
 
 import java.util.*;
 
-@Repository
+//@Repository <- jpa repository 이용하기 위해 삭제
 public class MemoryUserRepository implements UserRepository {
     public static Map<String, User> store = new HashMap<>();
 

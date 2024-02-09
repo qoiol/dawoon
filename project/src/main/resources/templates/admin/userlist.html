@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 목록</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <br>
+    <h4>사용자 목록</h4>
+    <br>
+    <table class="table table-bordered">
+        <thead class="thead-inverse">
+        <tr>
+            <td>사용자 ID</td>
+            <td>이메일</td>
+        </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="user : ${userlist}">
+                <td> <a th:href="@{/user/update(userId=${user.getId()})}" th:text="${user.getId()}"/> </td>
+                <td th:text="${user.getEmail()}" />
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/user/create/form}" class="btn btn-primary">사용자 추가 </a>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package spring.project.Controller;
+package spring.project.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +78,16 @@ public class UserController {
         userService.join(user);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage(){
+        return "/admin/adminPage";
+    }
+
+    @GetMapping("/admin/userlist")
+    public String userlist(Model model){
+        model.addAttribute("userlist" , userService.findUsers());
+        return "/admin/userlist";
     }
 }

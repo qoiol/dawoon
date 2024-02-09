@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<section style="text-align:center">
+    <a th:href="@{/admin/userlist}"> 사용자 목록 </a> <br>
+    <a th:href="@{/admin/reportlist}"> 신고 처리 </a> <br>
+</section>
+</body>
+<div th:insert="~{footer :: footer}"></div>
+</body>
+</html>

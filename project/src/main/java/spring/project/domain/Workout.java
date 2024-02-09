@@ -1,11 +1,14 @@
 package spring.project.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Workout {
-    @Id
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long workoutId;
     private String workoutType;
     private String workoutDifficulty;
@@ -16,7 +19,7 @@ public class Workout {
         return workoutId;
     }
 
-    public void setWorkoutId(int workoutId) {
+    public void setWorkoutId(long workoutId) {
         this.workoutId = workoutId;
     }
 

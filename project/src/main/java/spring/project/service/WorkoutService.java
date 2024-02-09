@@ -26,15 +26,17 @@ public class WorkoutService {
 
     //운동 추가, 신청
     public void addWorkout(Workout workout){
-        if(validateDuplicateWorkout(workout.getWorkoutId())) {
-            workoutRepository.save(workout);
-        } else {
-            throw new RuntimeException("이미 같은 운동이 존재합니다.");
-        }
+        System.out.println("workoutId가 "+workout.getWorkoutId());
+        workoutRepository.save(workout);
+//        if(validateDuplicateWorkout(workout.getWorkoutId())) {
+//            workoutRepository.save(workout);
+//        } else {
+//            throw new RuntimeException("이미 같은 운동이 존재합니다.");
+//        }
     }
 
     //운동 업데이트
-    public Workout updateWorkout(int workoutId, Workout updatedWorkout){
+    public Workout updateWorkout(long workoutId, Workout updatedWorkout){
         Optional<Workout> optionalWorkout = workoutRepository.findById(workoutId);
 
         if(optionalWorkout.isPresent()){
@@ -53,7 +55,7 @@ public class WorkoutService {
     }
 
     //운동 삭제
-    public void deleteWorkout(int workoutId){
+    public void deleteWorkout(long workoutId){
         //workoutId 를 사용하여 해당 Workout을 DB에서 조회
         Optional<Workout> optionalWorkout = workoutRepository.findById(workoutId);
 
@@ -67,21 +69,21 @@ public class WorkoutService {
         }
     }
 
-    //운동 예약 메소드
-    public void reserveWorkout(int workoutId) {
-        //로직 구현.. 운동 예약, DB에 저장
-        Workout workout = workoutRepository.findById(workoutId)
-                .orElseThrow(() -> new RuntimeException("운동 정보를 찾을 수 없습니다."));
-
-        //운동정보 예약
-        //예약에 필요한 추가적인 처리
-    }
+//    //운동 예약 메소드
+//    public void reserveWorkout(long workoutId) {
+//        //로직 구현.. 운동 예약, DB에 저장
+//        Workout workout = workoutRepository.findById(workoutId)
+//                .orElseThrow(() -> new RuntimeException("운동 정보를 찾을 수 없습니다."));
+//
+//        //운동정보 예약
+//        //예약에 필요한 추가적인 처리
+//    }
 
     //운동 중복신청 검사 (WorkoutId(운동 식별자)로 겹치는지 검사)
     public boolean validateDuplicateWorkout(long workoutId){
         //workoutId 식별자로 이미 존재하는 Workout을 조회
-        Optional<Workout> existingWorkout =
-                Optional.ofNullable(workoutRepository.findByWorkoutId(workoutId));
+        Optional<Optional<Workout>> existingWorkout =
+                Optional.ofNullable(workoutRepository.findById(workoutId));
 
         //이미 존재하는 Workout이 있으면 중복이니까
         if (existingWorkout.isPresent()) {

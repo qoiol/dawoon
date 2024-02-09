@@ -60,7 +60,7 @@
     <div th:each="workout : ${workoutList}" class="card bg-light mt-3">
         <div class="card-header bg-light">
             <div class="col-10 text-left">
-                <h5 th:text="${workout.workoutType}"></h5>
+                <h5 th:text="${workout.workoutType}"> : </h5>
             </div>
         </div>
         <div class="card-body">

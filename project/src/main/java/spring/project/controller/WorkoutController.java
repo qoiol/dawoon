@@ -65,13 +65,13 @@ public class WorkoutController {
         return "redirect:/workout/list";
     }
 
-    //운동 신청하기
-    @PostMapping("/workout/reservation")
-    public String reserveWorkout(@RequestParam("workoutId") int workoutId) {
-        //WorkoutService를 사용하여 운동을 신청
-        workoutService.reserveWorkout(workoutId);
-        return "redirect:/workout/list";
-    }
+//    //운동 신청하기
+//    @PostMapping("/workout/reservation")
+//    public String reserveWorkout(@RequestParam("workoutId") int workoutId) {
+//        //WorkoutService를 사용하여 운동을 신청
+//        workoutService.reserveWorkout(workoutId);
+//        return "redirect:/workout/list";
+//    }
 
 //    //해당 keyword로 검색하기
 //    @PostMapping("/search")

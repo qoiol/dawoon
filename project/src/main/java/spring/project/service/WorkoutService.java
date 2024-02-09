@@ -1,12 +1,15 @@
 package spring.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Service;
 import spring.project.domain.Workout;
 import spring.project.repository.WorkoutRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class WorkoutService {
 
     private final WorkoutRepository workoutRepository;
@@ -23,7 +26,7 @@ public class WorkoutService {
 
     //운동 추가, 신청
     public void addWorkout(Workout workout){
-        if(validateDuplicateWorkout(workout)) {
+        if(validateDuplicateWorkout(workout.getWorkoutId())) {
             workoutRepository.save(workout);
         } else {
             throw new RuntimeException("이미 같은 운동이 존재합니다.");
@@ -64,11 +67,21 @@ public class WorkoutService {
         }
     }
 
+    //운동 예약 메소드
+    public void reserveWorkout(int workoutId) {
+        //로직 구현.. 운동 예약, DB에 저장
+        Workout workout = workoutRepository.findById(workoutId)
+                .orElseThrow(() -> new RuntimeException("운동 정보를 찾을 수 없습니다."));
+
+        //운동정보 예약
+        //예약에 필요한 추가적인 처리
+    }
+
     //운동 중복신청 검사 (WorkoutId(운동 식별자)로 겹치는지 검사)
-    public boolean validateDuplicateWorkout(Workout workout){
+    public boolean validateDuplicateWorkout(long workoutId){
         //workoutId 식별자로 이미 존재하는 Workout을 조회
         Optional<Workout> existingWorkout =
-                Optional.ofNullable(workoutRepository.findByWorkoutId(workout.getWorkoutId()));
+                Optional.ofNullable(workoutRepository.findByWorkoutId(workoutId));
 
         //이미 존재하는 Workout이 있으면 중복이니까
         if (existingWorkout.isPresent()) {
@@ -79,14 +92,14 @@ public class WorkoutService {
         }
     }
 
-    // userId로 Workout 리스트 가져오기
-    public List<Workout> getWorkoutsByUserId(String userId) {
-        return workoutRepository.findByUserId(userId);
-    }
+//    // userId로 Workout 리스트 가져오기
+//    public List<Workout> getWorkoutsByUserId(String userId) {
+//        return workoutRepository.findByUserId(userId);
+//    }
 
-    // 특정 키워드로 Workout 리스트 검색
-    public List<Workout> findWorkoutsByKeyword(String keyword) {
-        return workoutRepository.findByKeyword(keyword);
-    }
+//    // 특정 키워드로 Workout 리스트 검색
+//    public List<Workout> findWorkoutByKeyword(@Param("keyword") String keyword) {
+//        return workoutRepository.findWorkoutByKeyword(keyword);
+//    }
 
 }

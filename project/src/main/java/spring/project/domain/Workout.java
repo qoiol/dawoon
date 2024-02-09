@@ -1,13 +1,18 @@
 package spring.project.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Workout {
-    private int workoutId;
+    @Id
+    private long workoutId;
     private String workoutType;
     private String workoutDifficulty;
     private String trainerId;
     private String trainerName;
 
-    public int getWorkoutId() {
+    public long getWorkoutId() {
         return workoutId;
     }
 

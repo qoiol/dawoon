@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>운동 추가</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function exerciseCreate() {
+            if (form.workoutType.value == "") {
+                alert("운동의 이름을 입력하십시오.");
+                form.name.focus();
+                return false;
+            }
+            if (form.workoutDifficulty.value == "") {
+                alert("운동강도를 입력하십시오.");
+                form.difficulty.focus();
+                return false;
+            }
+            form.submit();
+        }
+    </script>
+
+</head>
+
+<body>
+<header th:insert="~{header :: header}"></header>
+<br>
+<section class="container mt-3" style="max-width: 600px;">
+    <!-- register ExerciseForm -->
+    <form name="form" method="POST" th:action="@{/workout/add}">
+        <h1 align="center">새로운 운동 등록</h1>
+        <hr>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2 pt-0">운동 종목</label>
+            <div class="form-check form-check-inline">
+                <div class="col-sm-4">
+                    <input class="form-check-input" type="radio" name="workoutType" id="inlineRadios1" value="헬스" checked>
+                    <label class="form-check-label" for="inlineRadios1">헬스</label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-check-input" type="radio" name="workoutType" id="inlineRadios2" value="요가" checked>
+                    <label class="form-check-label" for="inlineRadios2">요가</label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-check-input" type="radio" name="workoutType" id="inlineRadios3" value="수영" checked>
+                    <label class="form-check-label" for="inlineRadios3">수영</label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-check-input" type="radio" name="workoutType" id="inlineRadios4" value="PT" checked>
+                    <label class="form-check-label" for="inlineRadios4">PT</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="workoutType" class="col-lg-2 col-form-label">운동 이름</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="workoutType" name="workoutType" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2 pt-0">강도</label>
+            <div class="col-sm-10">
+                <div class="form-check form-check-inline">
+                    <div class="col-sm-4">
+                        <input class="form-check-input" type="radio" name="workoutDifficulty" id="inlineRadios5" value="상" checked>
+                        <label class="form-check-label" for="inlineRadios5">상</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-check-input" type="radio" name="workoutDifficulty" id="inlineRadios6" value="중" checked>
+                        <label class="form-check-label" for="inlineRadios6">중</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-check-input" type="radio" name="workoutDifficulty" id="inlineRadios7" value="하" checked>
+                        <label class="form-check-label" for="inlineRadios7">하</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div align="center">
+        <span class="badge rounded-pill text-light bg-warning">!</span> 운동목록 조회를 원하면 상단의 '관리'를 클릭하세요
+        <br><br>
+
+            <input class="btn btn-primary" type="submit" value="운동등록" />
+            <input class="btn btn-light" type="reset" value="초기화">
+        </div>
+        <br><br><br>
+    </form>
+</section>
+<div th:insert="~{footer :: footer}"></div>
+</body>
+
+
+</html>
+

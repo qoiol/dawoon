@@ -99,9 +99,9 @@ public class WorkoutService {
 //        return workoutRepository.findByUserId(userId);
 //    }
 
-//    // 특정 키워드로 Workout 리스트 검색
-//    public List<Workout> findWorkoutByKeyword(@Param("keyword") String keyword) {
-//        return workoutRepository.findWorkoutByKeyword(keyword);
-//    }
+    // 특정 키워드로 Workout 리스트 검색
+    public List<Workout> findByKeyword(String workoutDifficulty, String workoutType) {
+        return workoutRepository.findByKeyword(workoutDifficulty, workoutType);
+    }
 
 }

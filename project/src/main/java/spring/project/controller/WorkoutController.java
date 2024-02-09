@@ -76,12 +76,17 @@ public class WorkoutController {
 //        return "redirect:/workout/list";
 //    }
 
-//    //해당 keyword로 검색하기
-//    @PostMapping("/search")
-//    public String searchWorkout(@Param("keyword") String keyword, Model model) {
-//        //keyword를 사용하여 검색한 리스트를 반환
-//        List<Workout> workoutList = workoutService.findWorkoutByKeyword(keyword);
-//        model.addAttribute("workoutList",workoutList);
-//        return "redirect:/workout/list";
-//    }
+    //해당 keyword로 검색하기
+    @GetMapping("/workout/search")
+    public String searchWorkout(@RequestParam ("workoutDifficulty") String workoutDifficulty,
+                                @RequestParam ("workoutType") String workoutType, Model model) {
+        //keyword를 사용하여 검색한 리스트를 반환
+        System.out.println(workoutDifficulty);
+        System.out.println(workoutType);
+        List<Workout> workoutList = workoutService.findByKeyword(workoutDifficulty, workoutType);
+
+        System.out.println(workoutList.get(0).getWorkoutType());
+        model.addAttribute("workoutList",workoutList);
+        return "/workout/workoutList";
+    }
 }

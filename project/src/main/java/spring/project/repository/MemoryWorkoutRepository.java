@@ -1,5 +1,6 @@
 package spring.project.repository;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import spring.project.domain.Workout;
 
@@ -35,6 +36,21 @@ public class MemoryWorkoutRepository implements WorkoutRepository {
     public Optional<Workout> findById(long workoutId) {
         Long id = workoutId;
         return Optional.ofNullable(store.get(id));
+    }
+
+    @Override
+    public List<Workout> findByKeyword(String workoutDifficulty, String workoutType) {
+        List<Workout> foundWorkouts = new ArrayList<>();
+
+        // 저장된 모든 운동을 반복하여 키워드와 일치하는 운동을 찾습니다.
+        for (Workout workout : store.values()) {
+            // 운동 이름 또는 다른 속성에서 키워드를 검색하고 일치하는 경우 리스트에 추가합니다.
+            if (workout.getWorkoutDifficulty().contains(workoutDifficulty) &&
+                    (workout.getWorkoutType().contains(workoutType)))
+                foundWorkouts.add(workout);
+
+        }
+        return foundWorkouts;
     }
 
 

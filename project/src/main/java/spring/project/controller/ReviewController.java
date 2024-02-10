@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import spring.project.domain.Report;
 import spring.project.domain.Review;
 import spring.project.domain.Workout;
+import spring.project.repository.WorkoutRepository;
 import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
+import spring.project.service.WorkoutService;
 
 import java.util.ArrayList;
 
@@ -18,17 +20,19 @@ import java.util.ArrayList;
 public class ReviewController {
     private final ReviewService reviewService;
     private final ReportService reportService;
+    private final WorkoutService workoutService;
 
     @Autowired
-    public ReviewController(ReviewService reviewService, ReportService reportService) {
+    public ReviewController(ReviewService reviewService, ReportService reportService, WorkoutService workoutService) {
         this.reviewService = reviewService;
         this.reportService = reportService;
+        this.workoutService = workoutService;
     }
 
     @GetMapping("/review")
     public String reviewPage(Model model, HttpSession session){
         model.addAttribute("reviewList", reviewService.findReviews());
-        model.addAttribute("wList", new ArrayList<Workout>());
+        model.addAttribute("wList", workoutService.getAllWorkoutList());
         session.setAttribute("orderType", session.getAttribute("orderType"));
         session.setAttribute("workoutType", session.getAttribute("workoutType"));
         return "/review/reviewPage";

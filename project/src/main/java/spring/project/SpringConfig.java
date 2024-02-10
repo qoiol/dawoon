@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
     //    private final UserRepository userRepository;
-    private final ReviewRepository reviewRepository;
+//    private final ReviewRepository reviewRepository;
     private final ReportRepository reportRepository;
     private final LikeyRepository likeyRepository;
     private final WorkoutRepository workoutRepository;
@@ -24,8 +24,7 @@ public class SpringConfig {
     private final EntityManager em;
     private final DataSource dataSource;
 
-    public SpringConfig(ReviewRepository reviewRepository, ReportRepository reportRepository, LikeyRepository likeyRepository, WorkoutRepository workoutRepository, EntityManager em, DataSource dataSource) {
-        this.reviewRepository = reviewRepository;
+    public SpringConfig(ReportRepository reportRepository, LikeyRepository likeyRepository, WorkoutRepository workoutRepository, EntityManager em, DataSource dataSource) {
         this.reportRepository = reportRepository;
         this.likeyRepository = likeyRepository;
         this.workoutRepository = workoutRepository;
@@ -55,12 +54,12 @@ public class SpringConfig {
 
     @Bean
     public ReviewService reviewService() {
-        return new ReviewService(reviewRepository, likeyRepository);
+        return new ReviewService(reviewRepository(), likeyRepository);
     }
 
     @Bean
     public ReviewRepository reviewRepository() {
-        return new MemoryReviewRepository();
+        return new JpaReviewRepository(em);
     }
 
     @Bean

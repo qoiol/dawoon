@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
+@Entity(name="workout")
 public class Workout {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +15,11 @@ public class Workout {
     private String trainerId;
     private String trainerName;
     private String workoutName;
+
+    @Override
+    public String toString() {
+        return workoutName +" - "+ trainerName;
+    }
 
     public String getWorkoutName() {
         return workoutName;

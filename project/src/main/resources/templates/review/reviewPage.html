@@ -22,8 +22,8 @@
     <form method="get" th:action="@{/review/search}" class="form-inline mt-3">
         <select name="workoutType" class="form-control mx-1 mt-2">
             <option value="전체">전체</option>
-            <option th:each="w : ${wList}" th:selected="${w.getExerciseId() eq session.workoutType}"
-                    th:value="${w.getExerciseId()}" th:text="${w.toString()}"/>
+            <option th:each="w : ${wList}" th:selected="${w.getWorkoutId() eq session.workoutType}"
+                    th:value="${w.getWorkoutId()}" th:text="${w.toString()}"/>
         </select>
         <select name="orderType" class="form-control mx-1 mt-2">
             <option value="r.id">최신순</option>
@@ -107,7 +107,7 @@
                             <label>운동 선택</label>
                             <select id="workoutId" name="workoutId" class="form-control">
                                 <option th:each="w : ${wList}"
-                                        th:text="${w.getWorkoutType() + '-' + w.getTrainerName()}"
+                                        th:text="${w.getWorkoutName() + '-' + w.getTrainerName()}"
                                         value="${w.getWorkoutId()}"/>
                             </select>
                         </div>

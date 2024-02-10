@@ -15,6 +15,17 @@
         ]]>
     </script>
 
+    <script>
+        function deleteWorkout(workoutId) {
+            if (confirm('삭제 하시겠습니까?')) {
+                var form = document.getElementById('deleteForm');
+                form.action = '/workout/delete/' + workoutId;
+                form.submit();
+            }
+        }
+    </script>
+
+
 </head>
 
 <body>
@@ -52,7 +63,6 @@
 
         <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
 
-
     </form>
 
     <button class="btn btn-primary mx-1 mt-2" onclick="window.location.href='/workout/add'">운동 등록</button>
@@ -78,6 +88,13 @@
                    th:href="@{/workout/reservation(workoutId=${workout.workoutId})}">
                     신청하기
                 </a>
+
+                <div class="col" th:if="${session.userId == 'admin'}">
+                    <a onclick="return confirm('삭제 하시겠습니까?')" class="btn btn-primary"
+                           th:href="@{'/workout/delete/' + ${workout.workoutId}}">
+                        삭제
+                    </a>
+                </div>
             </span>
         </div>
     </div>
@@ -107,3 +124,4 @@
 <!--<div th:insert="~{footer :: footer}"></div>-->
 <!--</body>-->
 <!--</html>-->
+

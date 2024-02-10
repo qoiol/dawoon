@@ -1,7 +1,6 @@
 package spring.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import spring.project.domain.Workout;
 import spring.project.repository.WorkoutRepository;
@@ -26,8 +25,10 @@ public class WorkoutService {
 
     //운동 추가, 신청
     public void addWorkout(Workout workout){
-        System.out.println("workoutId가 "+workout.getWorkoutId());
+
+        System.out.println("Service workoutId11111가 "+workout.getWorkoutId());
         workoutRepository.save(workout);
+        System.out.println("Service workoutId2222가 "+workout.getWorkoutId());
 //        if(validateDuplicateWorkout(workout.getWorkoutId())) {
 //            workoutRepository.save(workout);
 //        } else {
@@ -35,37 +36,27 @@ public class WorkoutService {
 //        }
     }
 
-    //운동 업데이트
-    public Workout updateWorkout(long workoutId, Workout updatedWorkout){
-        Optional<Workout> optionalWorkout = workoutRepository.findById(workoutId);
-
-        if(optionalWorkout.isPresent()){
-            //Workout이 존재할 경우에만 수정
-            Workout workout = optionalWorkout.get();
-            //수정된 내용으로 업데이트
-            workout.setWorkoutType(updatedWorkout.getWorkoutType());
-            workout.setWorkoutDifficulty(updatedWorkout.getWorkoutDifficulty());
-            workout.setTrainerId(updatedWorkout.getTrainerId());
-            workout.setTrainerName(updatedWorkout.getTrainerName());
-            //업데이트 된 Workout 저장 후 반환
-            return workoutRepository.save(workout);
-        } else {
-            return null;  //조회된 Workout 없을 경우
-        }
+    //workoutId로 Workout 엔티티 하나 가져오기
+    public Optional<Workout> findById(long workoutId){
+        Optional<Workout> foundWorkout = workoutRepository.findById(workoutId);
+        return foundWorkout;
     }
 
     //운동 삭제
     public void deleteWorkout(long workoutId){
-        //workoutId 를 사용하여 해당 Workout을 DB에서 조회
+        // workoutId를 사용하여 해당 Workout을 DB에서 조회
         Optional<Workout> optionalWorkout = workoutRepository.findById(workoutId);
 
-        if(optionalWorkout.isPresent()){
-            //workout이 존재할 경우
+        // 조회된 Workout이 존재하는지 확인
+        if (optionalWorkout.isPresent()) {
             Workout workout = optionalWorkout.get();
-            //workout 삭제
+            // Workout이 존재할 경우 삭제
             workoutRepository.delete(workout);
+            // 삭제된 운동 정보를 로그로 출력
+            System.out.println("운동 삭제: " + workout);
         } else {
-            throw new RuntimeException("존재하지 않는 Entity 입니다");
+            // 조회된 Workout이 없는 경우 예외 발생
+            throw new RuntimeException("운동이 존재하지 않습니다. ID: " + workoutId);
         }
     }
 

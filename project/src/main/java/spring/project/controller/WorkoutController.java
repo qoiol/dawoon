@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.*;
+//import spring.project.domain.Reservation;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import spring.project.domain.User;
 import spring.project.domain.Workout;
 import spring.project.service.UserService;
 import spring.project.service.WorkoutService;
 
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,38 +58,38 @@ public class WorkoutController {
         String trainerId = (String)request.getSession().getAttribute("userId");
         Optional<User> user = userService.findOne(trainerId);
 
-
         workout.setTrainerName(user.get().getName());
 
         //workoutService를 사용하여 workout에 추가
         workoutService.addWorkout(workout);
-
+        System.out.println("Controller- workoutId가 "+workout.getWorkoutId());
         return "redirect:/workout/list";
     }
 
-    //운동 수정 하기
-    @PostMapping("/workout/update")
-    public String updateWorkout(@RequestParam ("workoutId") int workoutId, Workout updatedWorkout){
-        //workoutService를 사용하여 workout을 업데이트
-        workoutService.updateWorkout(workoutId, updatedWorkout);
-        return "redirect:/workout/list";
-    }
-
-    //운동 삭제 하기
-    @DeleteMapping("/workout/delete/{workoutId}")
-    public String deleteWorkout(@PathVariable int workoutId){
-        //workoutService를 사용하여 workout을 삭제
+    // 운동 삭제 하기
+    @RequestMapping ("/workout/delete/{workoutId}")
+    public String deleteWorkout(@PathVariable long workoutId) {
+        System.out.println("delete Controller in");
         workoutService.deleteWorkout(workoutId);
         return "redirect:/workout/list";
     }
 
+
 //    //운동 신청하기
-//    @PostMapping("/workout/reservation")
-//    public String reserveWorkout(@RequestParam("workoutId") int workoutId) {
+//    @PostMapping("/reservation")
+//    public String reserveWorkout(Workout workout, HttpServletRequest request) {
+//        String userId = (String)request.getSession().getAttribute("userId");
+//
+//        int num = 0;
+//        Reservation reservation = new Reservation();
+//        reservation.setReservationId((Long)num++);
+//        reservation.setUser(userId);
+//
+//
 //        //WorkoutService를 사용하여 운동을 신청
 //        workoutService.reserveWorkout(workoutId);
 //        return "redirect:/workout/list";
-//    }
+  //  }
 
     //해당 keyword로 검색하기
     @GetMapping("/workout/search")
@@ -99,8 +100,9 @@ public class WorkoutController {
         System.out.println(workoutType);
         List<Workout> workoutList = workoutService.findByKeyword(workoutDifficulty, workoutType);
 
-        System.out.println(workoutList.get(0).getWorkoutType());
+        //System.out.println(workoutList.get(0).getWorkoutType());
         model.addAttribute("workoutList",workoutList);
         return "/workout/workoutList";
     }
+
 }

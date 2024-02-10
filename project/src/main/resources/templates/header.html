@@ -21,7 +21,7 @@
                     </div>
                     <div class="col" th:if="${session.userType == 'trainer' }">
                         <a style="text-decoration: none; color: inherit;"
-                           th:href="@{/workout/list}">운동 등록</a>
+                           th:href="@{/workout/add}">운동 등록</a>
                     </div>
                     <div class="col" th:if="${userType == 'user' }">
                         <a style="text-decoration: none; color: inherit;"
@@ -37,7 +37,7 @@
                     </div>
                     <div class="col">
                         <a style="text-decoration: none; color: inherit;"
-                           th:href="@{/user/mypage}">마이페이지</a>
+                           th:href="@{/myPage}">마이페이지</a>
                     </div>
                     <div class="col" th:if="${session.userId != null}">
                         <a style="text-decoration: none; color: inherit;" onclick="return confirm('로그아웃하시겠습니까?')"

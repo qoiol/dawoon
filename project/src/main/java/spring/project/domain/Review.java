@@ -1,7 +1,12 @@
 package spring.project.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity(name="review")
 public class Review {
 
+    @Id
     private long id;
     private String userId;
     private long workoutId;
@@ -11,6 +16,30 @@ public class Review {
     private int likeCount;
     private String postedDate;
     private String workoutName;
+    private String trainerName;
+
+    public Review() {    };
+
+    public Review(long id, String userId, long workoutId, String title, String content, int score, int likeCount, String postedDate, String workoutName, String trainerName) {
+        this.id = id;
+        this.userId = userId;
+        this.workoutId = workoutId;
+        this.title = title;
+        this.content = content;
+        this.score = score;
+        this.likeCount = likeCount;
+        this.postedDate = postedDate;
+        this.workoutName = workoutName;
+        this.trainerName = trainerName;
+    }
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
+    }
 
     public String getWorkoutName() {
         return workoutName;

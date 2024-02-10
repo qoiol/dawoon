@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-@Repository
+//@Repository
 public class MemoryReviewRepository implements ReviewRepository {
     private static Map<Long, Review> store = new HashMap<>();
     private static long seq = 0L;

@@ -3,7 +3,7 @@ package spring.project.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-@Entity(name = "UserInfo") // <- 테이블 이름으로 User 사용 불가, 다른 이름 지정
+@Entity(name = "userinfo") // <- 테이블 이름으로 User 사용 불가, 다른 이름 지정
 public class User {
     @Id
     private String id;

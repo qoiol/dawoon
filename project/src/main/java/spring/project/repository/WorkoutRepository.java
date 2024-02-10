@@ -19,8 +19,8 @@ public interface WorkoutRepository {
     //삭제
     void delete(Workout workout);
 
-    //수정
-    Workout update(Workout workout);
+    //운동 이름으로 workout엔티티 찾기
+    List<Workout> findByWorkoutName(String workoutName);
 
     //전체 리스트 가져오기
     List<Workout> findAll();
@@ -28,9 +28,7 @@ public interface WorkoutRepository {
     //workoutId로 Workout 엔티티 검색
     Optional<Workout> findById(long workoutId);
 
-
     //특정 키워드로 Workout 리스트 검색
-    //@Query("SELECT w FROM Workout w WHERE keyword LIKE %:keyword%")
     List<Workout> findByKeyword(String workoutDifficulty, String workoutType);
 
 }

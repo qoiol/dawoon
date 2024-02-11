@@ -16,8 +16,9 @@ public class JpaReviewRepository implements ReviewRepository{
     }
 
     @Override
-    public void save(Review review) {
+    public Review save(Review review) {
         em.persist(review);
+        return review;
     }
 
     @Override
@@ -28,8 +29,8 @@ public class JpaReviewRepository implements ReviewRepository{
 
     @Override
     public List<Review> findAll() {
-        return em.createQuery("select new spring.project.domain.Review(r.id, r.userId, r.workoutId, r.title, r.content, r.score, r.likeCount, r.postedDate, " +
-                "w.workoutName, u.name) from review r, workout w, userinfo u where w.workoutId = r.workoutId and w.trainerId = u.id", Review.class).getResultList();
+        return em.createQuery("select r " +
+                "from review r", Review.class).getResultList();
     }
 
     @Override

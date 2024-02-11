@@ -22,24 +22,13 @@ public class SpringConfig {
     private final WorkoutRepository workoutRepository;
 
     private final EntityManager em;
-    private final DataSource dataSource;
 
-    public SpringConfig(ReportRepository reportRepository, LikeyRepository likeyRepository, WorkoutRepository workoutRepository, EntityManager em, DataSource dataSource) {
+    public SpringConfig(ReportRepository reportRepository, LikeyRepository likeyRepository, WorkoutRepository workoutRepository, EntityManager em) {
         this.reportRepository = reportRepository;
         this.likeyRepository = likeyRepository;
         this.workoutRepository = workoutRepository;
         this.em = em;
-        this.dataSource = dataSource;
     }
-
-    //    @Autowired
-//    public SpringConfig(UserRepository userRepository, ReviewRepository reviewRepository, ReportRepository reportRepository, LikeyRepository likeyRepository, WorkoutRepository workoutRepository) {
-//        this.userRepository = userRepository;
-//        this.reviewRepository = reviewRepository;
-//        this.reportRepository = reportRepository;
-//        this.likeyRepository = likeyRepository;
-//        this.workoutRepository = workoutRepository;
-//    }
 
     @Bean
     public UserService userService() {

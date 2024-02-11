@@ -13,12 +13,12 @@ public class ReviewServiceTest {
     ReviewService reviewService;
     MemoryReviewRepository reviewRepository;
 
-    @BeforeEach
-    public void beforeEach(){
-
-        reviewRepository = new MemoryReviewRepository();
-        reviewService = new ReviewService(reviewRepository);
-    }
+//    @BeforeEach
+//    public void beforeEach(){
+//
+//        reviewRepository = new MemoryReviewRepository();
+//        reviewService = new ReviewService(reviewRepository);
+//    }
 //    @AfterEach
 //    public void afterEach(){
 //        reviewRepository.clearStore();

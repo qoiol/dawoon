@@ -31,6 +31,7 @@ public class ReviewController {
 
     @GetMapping("/review")
     public String reviewPage(Model model, HttpSession session){
+        System.out.println(" /// " );
         model.addAttribute("reviewList", reviewService.findReviews());
         model.addAttribute("wList", workoutService.getAllWorkoutList());
         session.setAttribute("orderType", session.getAttribute("orderType"));
@@ -48,6 +49,9 @@ public class ReviewController {
         review.setWorkoutId(reviewForm.getWorkoutId());
 
         review.setUserId(session.getAttribute("userId").toString());
+
+        reviewService.createReview(review);
+        System.out.println(" = ");
 
         session.setAttribute("orderType", null);
         session.setAttribute("workoutType", null);

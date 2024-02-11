@@ -12,10 +12,11 @@ public class MemoryReviewRepository implements ReviewRepository {
     private static Map<Long, Review> store = new HashMap<>();
     private static long seq = 0L;
     @Override
-    public void save(Review review) {
+    public Review save(Review review) {
         review.setId(++seq);
-        review.setPostedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        review.setPostedDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         store.put(review.getId(), review);
+        return review;
     }
 
     @Override

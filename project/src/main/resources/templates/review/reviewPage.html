@@ -108,7 +108,7 @@
                             <select id="workoutId" name="workoutId" class="form-control">
                                 <option th:each="w : ${wList}"
                                         th:text="${w.getWorkoutName() + '-' + w.getTrainerName()}"
-                                        value="${w.getWorkoutId()}"/>
+                                        th:value="${w.getWorkoutId()}"/>
                             </select>
                         </div>
                     </div>

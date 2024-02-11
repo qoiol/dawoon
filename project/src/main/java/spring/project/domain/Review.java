@@ -1,12 +1,14 @@
 package spring.project.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.sql.Timestamp;
 
 @Entity(name="review")
 public class Review {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String userId;
     private long workoutId;
@@ -14,13 +16,17 @@ public class Review {
     private String content;
     private int score;
     private int likeCount;
+    @CreatedDate
     private String postedDate;
+
+    @Transient
     private String workoutName;
+    @Transient
     private String trainerName;
 
     public Review() {    };
 
-    public Review(long id, String userId, long workoutId, String title, String content, int score, int likeCount, String postedDate, String workoutName, String trainerName) {
+    public Review(long id, String userId, long workoutId, String title, String content, int score, int likeCount, String postedDate) {
         this.id = id;
         this.userId = userId;
         this.workoutId = workoutId;
@@ -29,8 +35,6 @@ public class Review {
         this.score = score;
         this.likeCount = likeCount;
         this.postedDate = postedDate;
-        this.workoutName = workoutName;
-        this.trainerName = trainerName;
     }
 
     public String getTrainerName() {

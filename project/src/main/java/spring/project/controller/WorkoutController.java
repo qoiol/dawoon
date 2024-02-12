@@ -58,6 +58,7 @@ public class WorkoutController {
         String trainerId = (String)request.getSession().getAttribute("userId");
         Optional<User> user = userService.findOne(trainerId);
 
+        workout.setTrainerId(trainerId);
         workout.setTrainerName(user.get().getName());
 
         //workoutService를 사용하여 workout에 추가

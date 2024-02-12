@@ -2,18 +2,18 @@ package spring.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Workout;
 import spring.project.repository.WorkoutRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Transactional
 public class WorkoutService {
 
     private final WorkoutRepository workoutRepository;
 
-    @Autowired
     public WorkoutService(WorkoutRepository workoutRepository){
         this.workoutRepository = workoutRepository;
     }

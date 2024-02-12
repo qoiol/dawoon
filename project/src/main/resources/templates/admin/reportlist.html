@@ -15,6 +15,7 @@
     <table class="table table-bordered">
         <thead class="thead-inverse">
         <tr>
+            <td></td>
             <td>신고자 ID</td>
             <td>신고된 리뷰 ID</td>
             <td>신고 사유</td>
@@ -22,8 +23,9 @@
         </thead>
         <tbody>
             <tr th:each="report : ${reportlist}">
+                <td> <a th:href="@{/admin/report/{id}(id=${report.getId()})}" th:text="${report.getId()}" /> </td>
                 <td th:text="${report.getUserId}" />
-                <td> <a th:href="@{/admin/report/{reviewId}(reviewId=${report.getReviewId()})}" th:value="${report.getReviewId()}" /> </td>
+                <td th:text="${report.getReviewId()}" />
                 <td th:text="${report.getReportReason()}" />
             </tr>
         </tbody>

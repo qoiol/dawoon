@@ -1,22 +1,13 @@
 package spring.project.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-import spring.project.ProjectApplication;
-import spring.project.SpringConfig;
+import spring.project.domain.Report;
 import spring.project.domain.Review;
 import spring.project.domain.User;
 import spring.project.domain.Workout;
-import spring.project.repository.ReviewRepository;
-import spring.project.repository.UserRepository;
-import spring.project.repository.WorkoutRepository;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 @SpringBootTest
@@ -27,6 +18,8 @@ public class ReviewServiceIntegrationTest {
     WorkoutService workoutService;
     @Autowired
     UserService userService;
+    @Autowired
+    ReportService reportService;
 
     @Test
     void create(){
@@ -69,7 +62,29 @@ public class ReviewServiceIntegrationTest {
     }
     
     @Test
-    void findReviews(){
+    void reportdeletetest(){
+        Report report1 = new Report();
+        report1.setReviewId(0L);
+        report1.setUserId("admin");
+        report1.setReportReason("스팸");
+        reportService.create(report1);
 
+        Report report2 = new Report();
+        report2.setReviewId(0L);
+        report2.setUserId("admin");
+        report2.setReportReason("스팸");
+        reportService.create(report2);
+
+        Report report3 = new Report();
+        report3.setReviewId(0L);
+        report3.setUserId("admin");
+        report3.setReportReason("스팸");
+        reportService.create(report3);
+
+        reportService.returnReport(1);
+
+        reportService.deleteReport(0L);
+
+        System.out.println(reportService.findReports().size()+"");
     }
 }

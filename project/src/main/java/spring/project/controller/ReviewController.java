@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import spring.project.domain.Report;
 import spring.project.domain.Review;
@@ -60,13 +61,9 @@ public class ReviewController {
     }
 
     @GetMapping("/review/{id}/delete")
-    public String deleteReview(Model model, HttpSession session) {
-        try {
-            reviewService.delete((long) model.getAttribute("id"));
-        } catch (Exception e) {
-            model.addAttribute("message", e.getMessage());
-            return "/review/reviewPage";
-        }
+    public String deleteReview(Model model, HttpSession session, @PathVariable("id") long id) {
+
+        reviewService.delete(id);
 
         model.addAttribute("message", "삭제되었습니다.");
         session.setAttribute("orderType", null);
@@ -75,7 +72,7 @@ public class ReviewController {
     }
 
     @GetMapping("/review/{id}/like")
-    public String recommendReview(long id, HttpSession session) {
+    public String recommendReview(@PathVariable("id") long id, HttpSession session) {
         //추천 기능
         return "redirect:/review";
     }
@@ -89,6 +86,39 @@ public class ReviewController {
         report.setReportReason(reportForm.getReportReason());
         reportService.create(report);
         return "redirect:/review";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage(){
+        return "/admin/adminPage";
+    }
+
+    @GetMapping("/admin/report")
+    public String reportPage(Model model){
+        model.addAttribute("reportlist", reportService.findReports());
+        return "/admin/reportlist";
+    }
+
+    @GetMapping("/admin/report/{id}")
+    public String reportView(@PathVariable("id") long id, Model model){
+        Report report = reportService.findReport(id);
+        model.addAttribute("report", report);
+        model.addAttribute("review", reviewService.findOne(report.getReviewId()));
+        return "/admin/reportview";
+    }
+
+    @GetMapping("/admin/report/{id}/delete")
+    public String reportDelete(@PathVariable("id") long id){
+        long reviewId = reportService.findReport(id).getReviewId();
+        reviewService.delete(reviewId);
+        reportService.deleteReport(reviewId);
+        return "redirect:/admin/report";
+    }
+
+    @GetMapping("/admin/report/{id}/return")
+    public String reportReturn(@PathVariable("id") long id){
+        reportService.returnReport(id);
+        return "redirect:/admin/report";
     }
 
 }

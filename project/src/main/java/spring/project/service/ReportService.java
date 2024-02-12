@@ -1,10 +1,13 @@
 package spring.project.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Report;
 import spring.project.repository.ReportRepository;
 
-@Service
+import java.util.List;
+
+@Transactional
 public class ReportService {
     private final ReportRepository reportRepository;
 
@@ -25,9 +28,16 @@ public class ReportService {
         }
     }
 
-    public void reportCancel(long id){
+    public List<Report> findReports(){
+        return reportRepository.findAll();
+    }
+
+    public void returnReport(long id){
         reportRepository.deleteById(id);
     }
 
+    public void deleteReport(long reviewId) {
+        reportRepository.deleteByReviewId(reviewId);
+    }
 
 }

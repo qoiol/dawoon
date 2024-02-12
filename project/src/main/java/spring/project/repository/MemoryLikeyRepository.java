@@ -6,7 +6,7 @@ import spring.project.domain.Likey;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+//@Repository
 public class MemoryLikeyRepository implements LikeyRepository{
 
     List<Likey> store = new ArrayList<>();

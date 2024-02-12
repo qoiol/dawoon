@@ -3,18 +3,17 @@ package spring.project.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import spring.project.domain.Report;
 import spring.project.domain.Review;
-import spring.project.domain.Workout;
-import spring.project.repository.WorkoutRepository;
 import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
 import spring.project.service.WorkoutService;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ReviewController {
@@ -30,19 +29,21 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public String reviewPage(Model model, HttpSession session){
-        System.out.println(" /// " );
+    public String reviewPage(Model model, HttpSession session) {
+
         model.addAttribute("reviewList", reviewService.findReviews());
         model.addAttribute("wList", workoutService.getAllWorkoutList());
+
         session.setAttribute("orderType", session.getAttribute("orderType"));
         session.setAttribute("workoutType", session.getAttribute("workoutType"));
         return "/review/reviewPage";
     }
 
     @PostMapping("/review/create")
-    public String createReview(ReviewForm reviewForm, HttpSession session){
+    public String createReview(ReviewForm reviewForm, HttpSession session) {
 
         Review review = new Review();
+
         review.setScore(reviewForm.getScore());
         review.setTitle(reviewForm.getTitle());
         review.setContent(reviewForm.getContent());
@@ -51,19 +52,18 @@ public class ReviewController {
         review.setUserId(session.getAttribute("userId").toString());
 
         reviewService.createReview(review);
-        System.out.println(" = ");
 
         session.setAttribute("orderType", null);
         session.setAttribute("workoutType", null);
+
         return "redirect:/review";
     }
 
     @GetMapping("/review/{id}/delete")
-    public String deleteReview(Model model, HttpSession session){
-        try{
-            reviewService.delete((long)model.getAttribute("id"));
-        }
-        catch (Exception e){
+    public String deleteReview(Model model, HttpSession session) {
+        try {
+            reviewService.delete((long) model.getAttribute("id"));
+        } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
             return "/review/reviewPage";
         }
@@ -75,13 +75,13 @@ public class ReviewController {
     }
 
     @GetMapping("/review/{id}/like")
-    public String recommendReview(long id, HttpSession session){
+    public String recommendReview(long id, HttpSession session) {
         //추천 기능
         return "redirect:/review";
     }
 
     @PostMapping("/review/report")
-    public String report(ReportForm reportForm, HttpSession session){
+    public String report(ReportForm reportForm, HttpSession session) {
         //신고 처리
         Report report = new Report();
         report.setReviewId(reportForm.getReviewId());

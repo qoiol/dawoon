@@ -4,7 +4,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+import spring.project.ProjectApplication;
+import spring.project.SpringConfig;
 import spring.project.domain.Review;
 import spring.project.domain.User;
 import spring.project.domain.Workout;
@@ -17,20 +20,13 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @SpringBootTest
-@Transactional
 public class ReviewServiceIntegrationTest {
     @Autowired
     ReviewService reviewService;
     @Autowired
-    ReviewRepository reviewRepository;
-    @Autowired
     WorkoutService workoutService;
     @Autowired
     UserService userService;
-    @Autowired
-    WorkoutRepository workoutRepository;
-    @Autowired
-    UserRepository userRepository;
 
     @Test
     void create(){
@@ -48,13 +44,13 @@ public class ReviewServiceIntegrationTest {
         workout.setWorkoutDifficulty("하");
         workout.setWorkoutName("asdf");
         workout.setTrainerId("admin");
-        workout.setTrainerName("테스트");
         workoutService.addWorkout(workout);
 
         Review review = new Review();
+
         review.setContent("asdf");
         review.setUserId("admin");
-        review.setWorkoutId(0);
+        review.setWorkoutId(1);
         review.setTitle("sdfkfk");
         review.setScore(5);
 
@@ -66,6 +62,10 @@ public class ReviewServiceIntegrationTest {
 
         List<Review> reviews = reviewService.findReviews();
         System.out.println("reviews.size() = " + reviews.size());
+
+        System.out.println("reviews.get(0).getWorkoutName() = " + reviews.get(0).getWorkoutName());
+        System.out.println("reviews.get(0).getTrainerName() = " + reviews.get(0).getTrainerName());
+        System.out.println("reviews.get(0).getPostedDate() = " + reviews.get(0).getPostedDate());
     }
     
     @Test

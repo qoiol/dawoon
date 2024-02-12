@@ -42,9 +42,10 @@
     <div class="card bg-light mt-3" th:each="review : ${reviewList}">
         <div class="card-header bg-light">
             <div class="row">
-                <div class="col-8 text-left" th:text="${review.getWorkoutName() }">
-                    <small th:text="${review.getTrainerName() }"/> <small th:text="${review.getPostedDate()}"
-                                                                          style="color: grey"/>
+                <div class="col-8 text-left">
+                    <span th:text="${review.getWorkoutName()}"/>
+                    <small th:text="${review.getTrainerName() }"/>
+                    <small th:text="${review.getPostedDate()}" style="color: grey"/>
                 </div>
             </div>
         </div>
@@ -77,7 +78,7 @@
                        th:onclick="report(a=${review.getTitle() +'(작성자: '+review.getUserId()+')' }, b=${review.getId()})">신고</a>
 
                     <!-- 작성자==현재로그인유저 일 경우 삭제버튼 표시 -->
-                    <a class="btn btn-danger" th:if="${userId eq review.getUserId()}"
+                    <a class="btn btn-danger" th:if="${session.userId eq review.getUserId()}"
                        onclick="return confirm('삭제하시겠습니까?')"
                        th:href="@{/review/{id}(id=${review.getId()}}">삭제</a>
                 </div>

@@ -6,7 +6,7 @@ import spring.project.domain.Workout;
 
 import java.util.*;
 
-@Repository
+//@Repository
 public class MemoryWorkoutRepository implements WorkoutRepository {
 
     private static Map<Long, Workout> store = new HashMap<>();
@@ -27,9 +27,8 @@ public class MemoryWorkoutRepository implements WorkoutRepository {
     }
 
     @Override
-    public Workout update(Workout workout) {
-        store.put(workout.getWorkoutId(), workout);
-        return workout;
+    public List<Workout> findByWorkoutName(String workoutName) {
+        return null;
     }
 
     @Override

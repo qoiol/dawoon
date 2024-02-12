@@ -25,8 +25,13 @@ public class MemoryReviewRepository implements ReviewRepository {
     }
 
     @Override
-    public List<Review> findAll() {
+    public List<Review> findAllByWorkoutIdAndTrainerId() {
         return new ArrayList<>(store.values());
+    }
+
+    @Override
+    public List<Review> findAll() {
+        return null;
     }
 
     @Override

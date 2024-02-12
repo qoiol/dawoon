@@ -1,14 +1,17 @@
 package spring.project.domain;
 
-import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.sql.Timestamp;
+
+import jakarta.persistence.*;
+
+import java.util.Date;
+
 
 @Entity(name="review")
 public class Review {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String userId;
     private long workoutId;
@@ -16,17 +19,19 @@ public class Review {
     private String content;
     private int score;
     private int likeCount;
-    @CreatedDate
-    private String postedDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date postedDate;
 
     @Transient
     private String workoutName;
     @Transient
     private String trainerName;
 
+
+
     public Review() {    };
 
-    public Review(long id, String userId, long workoutId, String title, String content, int score, int likeCount, String postedDate) {
+    public Review(long id, String userId, long workoutId, String title, String content, int score, int likeCount, Date postedDate, String workoutName, String trainerName) {
         this.id = id;
         this.userId = userId;
         this.workoutId = workoutId;
@@ -35,6 +40,8 @@ public class Review {
         this.score = score;
         this.likeCount = likeCount;
         this.postedDate = postedDate;
+        this.workoutName = workoutName;
+        this.trainerName = trainerName;
     }
 
     public String getTrainerName() {
@@ -113,11 +120,11 @@ public class Review {
         this.likeCount = likeCount;
     }
 
-    public String getPostedDate() {
+    public Date getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(String postedDate) {
+    public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
     }
 }

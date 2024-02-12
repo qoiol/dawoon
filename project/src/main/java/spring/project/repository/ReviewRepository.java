@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface ReviewRepository {
     Review save(Review review);
     Optional<Review> findById(Long id);
+    List<Review> findAllByWorkoutIdAndTrainerId();
     List<Review> findAll();
     void deleteById(Long id);
 }

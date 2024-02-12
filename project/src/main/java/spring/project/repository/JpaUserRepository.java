@@ -7,7 +7,6 @@ import spring.project.domain.User;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public class JpaUserRepository implements UserRepository {
 
     private final EntityManager em;

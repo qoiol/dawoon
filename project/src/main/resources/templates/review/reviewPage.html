@@ -75,12 +75,12 @@
 
                 <div class="col-3 text-right">
                     <a data-toggle="modal" class="btn btn-warning" data-target="#reportModal"
-                       th:onclick="report(a=${review.getTitle() +'(작성자: '+review.getUserId()+')' }, b=${review.getId()})">신고</a>
+                       th:onclick="report([[${review.getTitle() +'(작성자: '+review.getUserId()+')' }]], [[${review.getId()}]])">신고</a>
 
                     <!-- 작성자==현재로그인유저 일 경우 삭제버튼 표시 -->
                     <a class="btn btn-danger" th:if="${session.userId eq review.getUserId()}"
                        onclick="return confirm('삭제하시겠습니까?')"
-                       th:href="@{/review/{id}(id=${review.getId()}}">삭제</a>
+                       th:href="@{/review/{id}/delete(id=${review.getId()})}">삭제</a>
                 </div>
             </div>
         </div>

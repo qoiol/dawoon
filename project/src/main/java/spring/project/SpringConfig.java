@@ -16,13 +16,10 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
 
-    private final ReportRepository reportRepository;
-
     private final EntityManager em;
 
 
-    public SpringConfig(ReportRepository reportRepository, EntityManager em) {
-        this.reportRepository = reportRepository;
+    public SpringConfig(EntityManager em) {
         this.em = em;
     }
 
@@ -33,7 +30,6 @@ public class SpringConfig {
 
     @Bean
     public UserRepository userRepository() {
-//        return new MemoryUserRepository();
         return new JpaUserRepository(em);
     }
 
@@ -49,12 +45,12 @@ public class SpringConfig {
 
     @Bean
     public ReportService reportService() {
-        return new ReportService(reportRepository);
+        return new ReportService(reportRepository());
     }
 
     @Bean
     public ReportRepository reportRepository() {
-        return new MemoryReportRepository();
+        return new JpaReportRepository(em);
     }
 
     @Bean

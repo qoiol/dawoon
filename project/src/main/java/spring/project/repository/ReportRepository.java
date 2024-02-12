@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReportRepository {
-    void save(Report report);
+    Report save(Report report);
     void deleteById(Long id);
     Optional<Report> findById(Long id);
     List<Report> findAll();
+    void deleteByReviewId(long reviewId);
 }

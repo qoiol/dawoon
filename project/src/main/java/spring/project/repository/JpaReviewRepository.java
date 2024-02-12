@@ -25,7 +25,7 @@ public class JpaReviewRepository implements ReviewRepository{
     @Override
     public Optional<Review> findById(Long id) {
         return Optional.ofNullable(em.createQuery("select new spring.project.domain.Review(r.id, r.userId, r.workoutId, r.title, r.content, r.score, r.likeCount, r.postedDate, " +
-                "w.workoutName, u.name) from review r, workout w, userinfo u where r.id = :id and w.workoutId = r.workoutId and w.trainerId = u.id", Review.class).getSingleResult());
+                "w.workoutName, u.name) from review r, Workout w, userinfo u where r.id = :id and w.workoutId = r.workoutId and w.trainerId = u.id", Review.class).setParameter("id", id).getSingleResult());
     }
 
     @Override

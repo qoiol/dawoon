@@ -10,8 +10,6 @@ import spring.project.domain.Workout;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-@Transactional
 public class JpaWorkoutRepository implements WorkoutRepository{
 
     @PersistenceContext
@@ -25,9 +23,6 @@ public class JpaWorkoutRepository implements WorkoutRepository{
 
     @Override
     public Workout save(Workout workout) {
-        // 엔티티의 ID 값을 설정
-        workout.setWorkoutId(generateWorkoutId());
-
         System.out.println("jpa workoutId가 "+workout.getWorkoutId());
         // merge를 사용하여 엔티티 저장
         return em.merge(workout);

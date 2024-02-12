@@ -19,7 +19,6 @@ public class JpaReviewRepository implements ReviewRepository{
     @Override
     public Review save(Review review) {
         em.persist(review);
-        em.clear();
         return review;
     }
 

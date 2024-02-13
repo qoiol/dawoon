@@ -84,7 +84,10 @@ public class UserController {
         return "redirect:/";
     }
 
-
+    @GetMapping("/admin")
+    public String adminPage(){
+        return "/admin/adminPage";
+    }
 
     @GetMapping("/admin/userlist")
     public String userlist(Model model){

@@ -33,8 +33,8 @@ public class ReviewService {
         return review.getId();
     }
 
-    public List<Review> findReviews() {
-        return reviewRepository.findAllByWorkoutIdAndTrainerId();
+    public List<Review> findReviews(String keyword, Long workoutId, String orderby) {
+        return reviewRepository.findAllByWorkoutIdAndTrainerId(keyword, workoutId, orderby);
     }
 
     public Review findOne(long id) {

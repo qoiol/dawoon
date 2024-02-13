@@ -9,7 +9,7 @@ public interface ReviewRepository {
     Review save(Review review);
     long update(Review review);
     Optional<Review> findById(Long id);
-    List<Review> findAllByWorkoutIdAndTrainerId();
+    List<Review> findAllByWorkoutIdAndTrainerId(String keyword, Long workoutId, String orderby);
     List<Review> findAll();
     void deleteById(Long id);
 }

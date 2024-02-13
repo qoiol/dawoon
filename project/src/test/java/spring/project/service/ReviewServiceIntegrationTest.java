@@ -87,4 +87,43 @@ public class ReviewServiceIntegrationTest {
 
         System.out.println(reportService.findReports().size()+"");
     }
+
+    @Test
+    void 리뷰업데이트(){
+        User user = new User();
+        user.setUserType("trainer");
+        user.setEmail("aaaa@bbb.ccc");
+        user.setPassword("admin");
+        user.setId("admin");
+        user.setName("테스트");
+        userService.join(user);
+        System.out.println("user.getId() = " + user.getId());
+
+        Workout workout = new Workout();
+        workout.setWorkoutType("요가");
+        workout.setWorkoutDifficulty("하");
+        workout.setWorkoutName("asdf");
+        workout.setTrainerId("admin");
+        workoutService.addWorkout(workout);
+
+        Review review1 = new Review();
+        review1.setContent("asdf");
+        review1.setUserId("admin");
+        review1.setWorkoutId(1);
+        review1.setTitle("sdfkfk");
+        review1.setScore(5);
+
+        reviewService.createReview(review1);
+
+        Review review2 = reviewService.findOne(review1.getId());
+        review2.setLikeCount(3);
+        reviewService.updateReview(review2);
+
+        List<Review> reviews = reviewService.findReviews();
+        System.out.println("reviews.size() = " + reviews.size());
+
+        System.out.println("id " + reviews.get(0).getId());
+
+        System.out.println("reviewService.findReviews().get(0).getScore() = " + reviews.get(0).getLikeCount());
+    }
 }

@@ -20,6 +20,11 @@ public class MemoryReviewRepository implements ReviewRepository {
     }
 
     @Override
+    public long update(Review review) {
+        return 0;
+    }
+
+    @Override
     public Optional<Review> findById(Long id) {
         return Optional.ofNullable(store.get(id));
     }

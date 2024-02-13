@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface ReviewRepository {
     Review save(Review review);
+    long update(Review review);
     Optional<Review> findById(Long id);
     List<Review> findAllByWorkoutIdAndTrainerId();
     List<Review> findAll();

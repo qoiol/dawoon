@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import spring.project.domain.Likey;
+import spring.project.domain.LikeyId;
 import spring.project.domain.Report;
 import spring.project.domain.Review;
 import spring.project.service.ReportService;
@@ -32,8 +34,8 @@ public class ReviewController {
     @GetMapping("/review")
     public String reviewPage(Model model, HttpSession session) {
 
-        model.addAttribute("reviewList", reviewService.findReviews());
-        model.addAttribute("wList", workoutService.getAllWorkoutList());
+        session.setAttribute("reviewList", reviewService.findReviews());
+        session.setAttribute("wList", workoutService.getAllWorkoutList());
 
         session.setAttribute("orderType", session.getAttribute("orderType"));
         session.setAttribute("workoutType", session.getAttribute("workoutType"));
@@ -71,12 +73,6 @@ public class ReviewController {
         return "redirect:/review";
     }
 
-    @GetMapping("/review/{id}/like")
-    public String recommendReview(@PathVariable("id") long id, HttpSession session) {
-        //추천 기능
-        return "redirect:/review";
-    }
-
     @PostMapping("/review/report")
     public String report(ReportForm reportForm, HttpSession session) {
         //신고 처리
@@ -86,11 +82,6 @@ public class ReviewController {
         report.setReportReason(reportForm.getReportReason());
         reportService.create(report);
         return "redirect:/review";
-    }
-
-    @GetMapping("/admin")
-    public String adminPage(){
-        return "/admin/adminPage";
     }
 
     @GetMapping("/admin/report")
@@ -121,4 +112,18 @@ public class ReviewController {
         return "redirect:/admin/report";
     }
 
+    @GetMapping("/review/{id}/like")
+    public String like(@PathVariable("id") long id, HttpSession session, Model model){
+        Likey likey = new Likey();
+//        likey.setReviewId(id);
+//        likey.setUserId(session.getAttribute("userId").toString());
+        LikeyId likeyId = new LikeyId(id, session.getAttribute("userId").toString());
+        likey.setLikeyId(likeyId);
+        String exception = reviewService.clickLikey(likey);
+        if(exception != null){
+            model.addAttribute("exception", exception);
+            return "/review/reviewPage";
+        }
+        return "redirect:/review";
+    }
 }

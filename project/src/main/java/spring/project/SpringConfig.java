@@ -35,12 +35,17 @@ public class SpringConfig {
 
     @Bean
     public ReviewService reviewService() {
-        return new ReviewService(reviewRepository());
+        return new ReviewService(reviewRepository(), likeyRepository());
     }
 
     @Bean
     public ReviewRepository reviewRepository() {
         return new JpaReviewRepository(em);
+    }
+
+    @Bean
+    public LikeyRepository likeyRepository() {
+        return new JpaLikeyRepository(em);
     }
 
     @Bean
@@ -62,5 +67,6 @@ public class SpringConfig {
     public WorkoutRepository workoutRepository() {
         return new JpaWorkoutRepository(em);
     }
+
 }
 

@@ -20,17 +20,17 @@
 
     <!-- 리뷰 검색 폼 -->
     <form method="get" th:action="@{/review/search}" class="form-inline mt-3">
-        <select name="workoutType" class="form-control mx-1 mt-2">
-            <option value="전체">전체</option>
-            <option th:each="w : ${session.wList}" th:selected="${w.getWorkoutId() eq session.workoutType}"
+        <select name="sworkoutid" class="form-control mx-1 mt-2">
+            <option th:value="${null}">전체</option>
+            <option th:each="w : ${session.wList}" th:selected="${w.getWorkoutId() eq session.sworkoutid}"
                     th:value="${w.getWorkoutId()}" th:text="${w.toString()}"/>
         </select>
-        <select name="orderType" class="form-control mx-1 mt-2">
-            <option value="r.id">최신순</option>
-            <option value="r.likeCount" th:selected="${session.orderType eq 'r.likeCount'}">추천순</option>
+        <select name="orderby" class="form-control mx-1 mt-2">
+            <option value="r.postedDate">최신순</option>
+            <option value="r.likeCount" th:selected="${session.orderby eq 'r.likeCount'}">추천순</option>
         </select>
-        <input type="text" name="searchContent" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요"
-               th:text="${session.searchContent}">
+        <input type="text" name="keyword" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요"
+               th:value="${session.keyword}">
         <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
         <a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a>
     </form>

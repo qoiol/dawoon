@@ -53,7 +53,7 @@ public class ReviewServiceIntegrationTest {
         System.out.println("review.getLikeCount() = " + review.getLikeCount());
         System.out.println(" = " +review.getPostedDate());
 
-        List<Review> reviews = reviewService.findReviews();
+        List<Review> reviews = reviewService.findReviews(null, null, "r.postedDate");
         System.out.println("reviews.size() = " + reviews.size());
 
         System.out.println("reviews.get(0).getWorkoutName() = " + reviews.get(0).getWorkoutName());
@@ -119,7 +119,7 @@ public class ReviewServiceIntegrationTest {
         review2.setLikeCount(3);
         reviewService.updateReview(review2);
 
-        List<Review> reviews = reviewService.findReviews();
+        List<Review> reviews = reviewService.findReviews(null, null, "r.postedDate");
         System.out.println("reviews.size() = " + reviews.size());
 
         System.out.println("id " + reviews.get(0).getId());

@@ -32,15 +32,35 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public String reviewPage(Model model, HttpSession session) {
+    public String reviewPage(Model model, HttpSession session){
+        String keyword = (session.getAttribute("keyword")==null)?null:session.getAttribute("keyword").toString();
+        Long workoutId = (session.getAttribute("sworkoutid")==null)?null:Long.parseLong(session.getAttribute("sworkoutid").toString());
+        String orderby = (session.getAttribute("orderby")==null)?"r.postedDate":session.getAttribute("orderby").toString();
 
-        session.setAttribute("reviewList", reviewService.findReviews());
+        session.setAttribute("reviewList", reviewService.findReviews(keyword, workoutId, orderby));
         session.setAttribute("wList", workoutService.getAllWorkoutList());
 
-        session.setAttribute("orderType", session.getAttribute("orderType"));
-        session.setAttribute("workoutType", session.getAttribute("workoutType"));
+        session.setAttribute("orderby", orderby);
+        session.setAttribute("sworkoutid", workoutId);
+        session.setAttribute("keyword", keyword);
         return "/review/reviewPage";
     }
+
+    @GetMapping("/review/search")
+    public String reviewSearch(Model model, HttpSession session, ReviewSearchForm reviewSearchForm){
+        String keyword = reviewSearchForm.getKeyword();
+        Long workoutId = reviewSearchForm.getSworkoutid();
+        String orderby = (reviewSearchForm.getOrderby()==null)?"r.postedDate":reviewSearchForm.getOrderby();
+
+        session.setAttribute("reviewList", reviewService.findReviews(keyword, workoutId, orderby));
+        session.setAttribute("wList", workoutService.getAllWorkoutList());
+
+        session.setAttribute("orderby", orderby);
+        session.setAttribute("sworkoutid", workoutId);
+        session.setAttribute("keyword", keyword);
+        return "/review/reviewPage";
+    }
+
 
     @PostMapping("/review/create")
     public String createReview(ReviewForm reviewForm, HttpSession session) {
@@ -58,6 +78,7 @@ public class ReviewController {
 
         session.setAttribute("orderType", null);
         session.setAttribute("workoutType", null);
+        session.setAttribute("orderby", null);
 
         return "redirect:/review";
     }
@@ -70,6 +91,7 @@ public class ReviewController {
         model.addAttribute("message", "삭제되었습니다.");
         session.setAttribute("orderType", null);
         session.setAttribute("workoutType", null);
+        session.setAttribute("orderby", null);
         return "redirect:/review";
     }
 

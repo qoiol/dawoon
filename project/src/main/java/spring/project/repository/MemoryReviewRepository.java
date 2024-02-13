@@ -30,7 +30,7 @@ public class MemoryReviewRepository implements ReviewRepository {
     }
 
     @Override
-    public List<Review> findAllByWorkoutIdAndTrainerId() {
+    public List<Review> findAllByWorkoutIdAndTrainerId(String keyword, Long workoutId, String orderby) {
         return new ArrayList<>(store.values());
     }
 

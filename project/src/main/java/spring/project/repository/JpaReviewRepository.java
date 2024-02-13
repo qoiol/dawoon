@@ -35,9 +35,17 @@ public class JpaReviewRepository implements ReviewRepository{
     }
 
     @Override
-    public List<Review> findAllByWorkoutIdAndTrainerId() {
-        return em.createQuery("select new spring.project.domain.Review(r.id, r.userId, r.workoutId, r.title, r.content, r.score, r.likeCount, r.postedDate, " +
-                "w.workoutName, u.name) from review r, Workout w, userinfo u where w.workoutId = r.workoutId and w.trainerId = u.id", Review.class).getResultList();
+    public List<Review> findAllByWorkoutIdAndTrainerId(String keyword, Long workoutId, String orderby) {
+        StringBuilder query = new StringBuilder("select new spring.project.domain.Review(r.id, r.userId, r.workoutId, r.title, r.content, r.score, r.likeCount, r.postedDate, " +
+                "w.workoutName, u.name) from review r, Workout w, userinfo u where w.workoutId = r.workoutId and w.trainerId = u.id");
+
+        if(keyword != null)
+            query.append(" and ((r.title Like '%"+ keyword + "%') OR (r.content Like '%"+ keyword + "%'))");
+        if(workoutId != null)
+            query.append(" and r.workoutId = "+ workoutId);
+        query.append(" order by "+orderby+" desc");
+
+        return em.createQuery(query.toString(), Review.class).getResultList();
     }
 
     @Override

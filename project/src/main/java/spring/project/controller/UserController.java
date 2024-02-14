@@ -78,6 +78,7 @@ public class UserController {
         user.setUserType(createForm.getUserType());
         user.setPassword(createForm.getPassword());
         user.setName(createForm.getName());
+        user.setPhone(createForm.getPhone());
 
         userService.join(user);
 

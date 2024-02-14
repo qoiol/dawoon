@@ -84,8 +84,8 @@
             <span class="col-10 text-left" th:text="'담당 강사 : ' + ${workout.trainerName}"></span>
 
             <span class="col-10">
-                <a onclick="return confirm('등록하시겠습니까?')" class="btn btn-primary"
-                   th:href="@{/workout/reservation(workoutId=${workout.workoutId})}">
+                <a onclick="return confirm('신청이 완료되었습니다. 마이페이지에서 확인하세요.')" class="btn btn-primary"
+                   th:href="@{'/workout/reservation/' + ${workout.workoutId}}">
                     신청하기
                 </a>
 

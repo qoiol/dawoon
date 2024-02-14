@@ -1,10 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>에러</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function userRemove() {
+            return confirm("정말 삭제하시겠습니까?");
+        }
+    </script>
 </head>
 <body>
+<div th:insert="~{header :: header}"></div>
 
+<div class="container">
+    <br>
+    <h4 align="center">사용자 정보 조회</h4>
+    <br>
+    <table class="table table-sm table-striped" style="text-align: center;">
+        <tbody>
+        <tr>
+            <th scope="col">사용자 ID</th>
+            <th scope="col">이름</th>
+            <th scope="col">이메일 주소</th>
+            <th scope="col">핸드폰 번호</th>
+        </tr>
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phone}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+
+    <a class="btn btn-primary" th:href="@{/user/update(id=${user.id})}">회원정보 수정</a>
+    <a class="btn btn-warning" th:href="@{/user/delete(id=${user.id})}" onclick="return userRemove();">회원 탈퇴</a>
+
+    <div th:if="${session.userId eq 'admin'}">
+        <a class="btn btn-success" th:href="@{/user/list}">사용자 목록</a>
+        <br>
+    </div>
+
+    <!-- 예약확인 테이블 (이거는 유저일 때만 나옴)-->
+    <div th:if="${session.userId != 'admin'}">
+        <hr color="black" size="10px"><br>
+        <h4 align="center">나의 운동 예약확인</h4><br><br>
+
+        <table class="table table-sm table-striped" style="text-align: center;">
+            <tr>
+                <th scope="col">강사</th>
+                <th scope="col">운동 타입</th>
+                <th scope="col">제목</th>
+                <th scope="col">강도</th>
+                <th scope="col">예약상태</th>
+                <th scope="col">신청취소</th>
+                <th scope="col">삭제</th>
+            </tr>
+
+            <tr th:each="res : ${reservationList}">
+                <td th:text="${res.trainerName}"></td>
+                <td th:text="${res.workoutType}"></td>
+                <td th:text="${res.workoutName}"></td>
+                <td th:text="${res.workoutDifficulty}"></td>
+                <td th:text="${res.status}"></td>
+                <td>
+                    <a th:if="${res.status eq '대기'}" th:href="@{/user/myPage/cancel(reservationId=${res.reservationId}, resUserId=${res.userId}, resWorkoutId=${res.workoutId})}"
+                       onclick="return confirm('취소하시겠습니까?')">취소</a>
+                </td>
+                <td>
+                    <a th:if="${res.status eq '취소' or res.status eq '거절'}" th:href="@{/user/myPage/delete(reservationId=${res.reservationId})}">삭제</a>
+                </td>
+            </tr>
+        </table>
+        <div class="col-lg-12 text-center text-danger" th:if="${#lists.isEmpty(reservationList)}">
+            예약내역이 없습니다.<br><br><br>
+        </div>
+    </div>
+
+<!--    &lt;!&ndash; 수정 또는 삭제가 실패한 경우 exception 객체에 저장된 오류 메시지를 출력 &ndash;&gt;-->
+<!--    <div th:if="${updateFailed or deleteFailed}">-->
+<!--        <h6 class="text-danger" th:text="${exception.message}"></h6>-->
+<!--    </div>-->
+</div>
+
+
+<div th:insert="~{footer :: footer}"></div>
 </body>
 </html>

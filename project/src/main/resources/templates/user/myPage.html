@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>에러</title>
+    <title>마이페이지</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -37,8 +37,8 @@
     </table>
     <br>
 
-    <a class="btn btn-primary" th:href="@{/user/update(id=${user.id})}">회원정보 수정</a>
-    <a class="btn btn-warning" th:href="@{/user/delete(id=${user.id})}" onclick="return userRemove();">회원 탈퇴</a>
+<!--    <a class="btn btn-primary" th:href="@{/user/update(id=${user.id})}">회원정보 수정</a>-->
+<!--    <a class="btn btn-warning" th:href="@{/user/delete(id=${user.id})}" onclick="return userRemove();">회원 탈퇴</a>-->
 
     <div th:if="${session.userId eq 'admin'}">
         <a class="btn btn-success" th:href="@{/user/list}">사용자 목록</a>
@@ -57,8 +57,7 @@
                 <th scope="col">제목</th>
                 <th scope="col">강도</th>
                 <th scope="col">예약상태</th>
-                <th scope="col">신청취소</th>
-                <th scope="col">삭제</th>
+                <th scope="col">취소</th>
             </tr>
 
             <tr th:each="res : ${reservationList}">
@@ -68,11 +67,8 @@
                 <td th:text="${res.workoutDifficulty}"></td>
                 <td th:text="${res.status}"></td>
                 <td>
-                    <a th:if="${res.status eq '대기'}" th:href="@{/user/myPage/cancel(reservationId=${res.reservationId}, resUserId=${res.userId}, resWorkoutId=${res.workoutId})}"
+                    <a th:if="${res.status eq '예약완료'}" th:href="@{'/workout/reservation/delete/' + ${res.reservationId}}"
                        onclick="return confirm('취소하시겠습니까?')">취소</a>
-                </td>
-                <td>
-                    <a th:if="${res.status eq '취소' or res.status eq '거절'}" th:href="@{/user/myPage/delete(reservationId=${res.reservationId})}">삭제</a>
                 </td>
             </tr>
         </table>

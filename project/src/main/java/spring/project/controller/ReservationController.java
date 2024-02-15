@@ -4,9 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import spring.project.domain.Reservation;
 import spring.project.domain.User;
 import spring.project.domain.Workout;
@@ -56,7 +54,7 @@ public class ReservationController {
         reservation.setWorkoutName(workout.get().getWorkoutName());
         reservation.setWorkoutType(workout.get().getWorkoutType());
         reservation.setWorkoutDifficulty(workout.get().getWorkoutDifficulty());
-        reservation.setStatus("진행중");
+        reservation.setStatus("예약완료");
 
         //새 예약을 등록
         reservationService.add(reservation);
@@ -66,40 +64,10 @@ public class ReservationController {
         return "redirect:/workout/list";
     }
 
-//    @GetMapping("/reservation/{workoutId}")
-//    public String addReservation(@PathVariable long workoutId, HttpServletRequest request) {
-//        System.out.println("Reservation Controller IN");
-//        String userId = (String)request.getSession().getAttribute("userId");
-//
-//        User user = userService.findOne(userId).get();
-//
-//        //reservation 객체 만들어서 user정보 가져와서 set 한 다음에
-//        Reservation reservation = new Reservation();
-//        reservation.setUserId(user.getId());
-//
-//        // Workout 객체를 가져오기 위해 WorkoutService를 사용
-//        Workout workout = workoutService.findById(workoutId);
-//        reservation.setWorkoutId(workout.getWorkoutId());
-//        reservation.setStatus("진행중");
-//
-//        System.out.println("reservationId : " +reservation.getReservationId() );
-//        System.out.println("userID : " +reservation.getUserId());
-//        System.out.println("status : " +reservation.getStatus() );
-//        System.out.println("reservationId : " +reservation.getReservationId());
-//
-//        //새 예약을 등록
-//        reservationService.add(reservation);
-//        System.out.println("reservation add success!!!!!!");
-//        return "redirect:/workout/list";
-//    }
-
-//    @PutMapping("/reservation/update")
-//    public Reservation updateReservation(@RequestBody Reservation reservation) {
-//        return reservationService.update(reservation);
-//    }
-
-//    @DeleteMapping("/reservation/{reservationId}")
-//    public void deleteReservation(@PathVariable Long reservationId) {
-//        reservationService.delete(reservationId);
-//    }
+    @RequestMapping("/workout/reservation/delete/{reservationId}")
+    public String deleteReservation(@PathVariable("reservationId") long reservationId) {
+        System.out.println("ReservationId : "+reservationId);
+        reservationService.delete(reservationId);
+        return "redirect:/myPage";
+    }
 }

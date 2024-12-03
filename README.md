@@ -15,8 +15,25 @@
 3️⃣ 관리자는 회원을 관리하고 신고 내용을 검토 및 처리할 수 있습니다.<br>
 
 ## ✔ Service
-### 1. 회원가입
-<img src="https://github.com/user-attachments/assets/19608f96-f5f7-41bb-b806-cc1ebb984fff" width="600" height="300" style="max-width: 100%;"><br><br>
+### 1. 회원가입 및 로그인
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B7%B8%EC%9D%B8+%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.gif" width="600" height="300" style="max-width: 100%;"><br><br>
+
+### 2. 강사
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EC%9A%B4%EB%8F%99+%EB%93%B1%EB%A1%9D.gif" width="600" height="300" style="max-width: 100%;"><br><br>
+
+### 강사의 운동 확인 + 시간표
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EA%B0%95%EC%82%AC+%EC%9A%B4%EB%8F%99%EB%AA%A9%EB%A1%9D+%26%EC%8B%9C%EA%B0%84%ED%91%9C.gif" width="600" height="300" style="max-width: 100%;"><br><br>
+
+### 3. 사용자 운동 목록 확인
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EC%9A%B4%EB%8F%99+%EB%AA%A9%EB%A1%9D+%ED%99%95%EC%9D%B8.gif" width="600" height="300" style="max-width: 100%;"><br><br>
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EB%A6%AC%EB%B7%B0+%EB%82%A8%EA%B8%B0%EA%B8%B0.gif" width="600" height="300" style="max-width: 100%;"><br><br>
+
+### 신고 등록
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EC%8B%A0%EA%B3%A0%ED%95%98%EA%B8%B0.gif" width="600" height="300" style="max-width: 100%;"><br><br>
+
+### 4. 관리자 
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EA%B4%80%EB%A6%AC%EC%9E%90+%EC%8B%A0%EA%B3%A0%ED%99%95%EC%9D%B8.gif" width="600" height="300" style="max-width: 100%;"><br>
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/%EA%B4%80%EB%A6%AC%EC%9E%90+%EB%A6%AC%EB%B7%B0%EC%82%AD%EC%A0%9C%EA%B6%8C%ED%95%9C.gif" width="600" height="300" style="max-width: 100%;"><br><br>
 ▪ 아이디 중복확인<br>
 
 ## 🙆‍♀️ Collaboration Tool
@@ -35,3 +52,4 @@
 ## ✔ System Architecture
 
 ## ✔ ERD diagram
+<img src="https://imgonna-soribank.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20241203_201955186.png" width="600" height="300" style="max-width: 100%;"><br>

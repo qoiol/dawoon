@@ -7,7 +7,7 @@
 |▪ 공미경 ▪|▪ 이도하 ▪|
 |:--------:|:--------:|
 |<img src="https://avatars.githubusercontent.com/u/80204416?v=4" height="100"/>|<img src="https://avatars.githubusercontent.com/u/79359308?v=4" height="100"/>|
-|백엔드 개발<br><a href="https://github.com/qoiol">@github</a>|백엔드 개발<br><a href="https://github.com/leedoha11">@leedoha11</a>|
+|백엔드 개발<br><a href="https://github.com/qoiol">@qoiol</a>|백엔드 개발<br><a href="https://github.com/leedoha11">@leedoha11</a>|
 
 ## 🗨 About Service
 1️⃣ 사용자는 운동을 예약하고 검색하며, 리뷰 작성과 좋아요를 통해 피드백을 남길 수 있습니다.<br>

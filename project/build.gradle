@@ -24,6 +24,24 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 //	implementation 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
+
+	implementation 'jakarta.annotation:jakarta.annotation-api'
+	implementation 'jakarta.persistence:jakarta.persistence-api'
+	implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
+	implementation 'com.querydsl:querydsl-apt:5.1.0'
+	implementation 'com.querydsl:querydsl-core:5.1.0'
+	implementation 'com.querydsl:querydsl-collections:5.1.0'
+	annotationProcessor 'com.querydsl:querydsl-apt:5.1.0:jakarta'
+	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
 }
 
 tasks.named('test') {

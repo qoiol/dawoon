@@ -6,6 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import spring.project.domain.Review;
+import spring.project.domain.User;
+import spring.project.domain.Workout;
 import spring.project.repository.MemoryReviewRepository;
 
 public class ReviewServiceTest {
@@ -28,9 +30,9 @@ public class ReviewServiceTest {
     void createTest(){
         Review review = new Review();
         review.setTitle("테스트리뷰");
-        review.setUserId("test");
+        review.setUser(User.builder().id("test").build());
         review.setContent("asdfas;dlkfj");
-        review.setWorkoutId(0);
+        review.setWorkout(Workout.builder().workoutId(0).build());
         review.setScore(5);
         long id = reviewService.createReview(review);
 

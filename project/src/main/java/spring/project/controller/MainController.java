@@ -21,8 +21,6 @@ public class MainController {
     public String mainPage(Model model){
         List<Workout> ex = new ArrayList<>();
 
-
-
         //top3 인기 운동 조회
 
         List<User> tr = new ArrayList<>();

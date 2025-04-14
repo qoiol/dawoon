@@ -13,4 +13,5 @@ public interface LikeyRepository {
     Long countByReviewId(Long reviewId);
     void deleteByReviewId(long reviewId);
     void delete(Likey likey);
+    boolean existsByReviewAndUser(Likey likey);
 }

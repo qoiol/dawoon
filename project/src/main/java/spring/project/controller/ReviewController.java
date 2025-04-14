@@ -8,10 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import spring.project.domain.Likey;
-import spring.project.domain.LikeyId;
-import spring.project.domain.Report;
-import spring.project.domain.Review;
+import spring.project.domain.*;
 import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
 import spring.project.service.WorkoutService;
@@ -70,9 +67,9 @@ public class ReviewController {
         review.setScore(reviewForm.getScore());
         review.setTitle(reviewForm.getTitle());
         review.setContent(reviewForm.getContent());
-        review.setWorkoutId(reviewForm.getWorkoutId());
+        review.setWorkout(Workout.builder().workoutId(reviewForm.getWorkoutId()).build());
 
-        review.setUserId(session.getAttribute("userId").toString());
+        review.setUser(User.builder().id(session.getAttribute("userId").toString()).build());
 
         reviewService.createReview(review);
 
@@ -139,9 +136,13 @@ public class ReviewController {
         Likey likey = new Likey();
 //        likey.setReviewId(id);
 //        likey.setUserId(session.getAttribute("userId").toString());
-        LikeyId likeyId = new LikeyId(id, session.getAttribute("userId").toString());
-        likey.setLikeyId(likeyId);
-        String exception = reviewService.clickLikey(likey);
+//        LikeyId likeyId = new LikeyId(id, );
+        String exception = reviewService.clickLikey(Likey.builder()
+                .review(Review.builder()
+                        .id(id).build())
+                .user(User.builder()
+                        .id(session.getAttribute("userId").toString()).build()).build()
+        );
         if(exception != null){
             model.addAttribute("exception", exception);
             return "/review/reviewPage";

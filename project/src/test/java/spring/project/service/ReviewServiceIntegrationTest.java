@@ -36,14 +36,14 @@ public class ReviewServiceIntegrationTest {
         workout.setWorkoutType("요가");
         workout.setWorkoutDifficulty("하");
         workout.setWorkoutName("asdf");
-        workout.setTrainerId("admin");
+        workout.setTrainer(User.builder().id("admin").build());
         workoutService.addWorkout(workout);
 
         Review review = new Review();
 
         review.setContent("asdf");
-        review.setUserId("admin");
-        review.setWorkoutId(1);
+        review.setUser(User.builder().id("admin").build());
+        review.setWorkout(Workout.builder().workoutId(1).build());
         review.setTitle("sdfkfk");
         review.setScore(5);
 
@@ -103,13 +103,13 @@ public class ReviewServiceIntegrationTest {
         workout.setWorkoutType("요가");
         workout.setWorkoutDifficulty("하");
         workout.setWorkoutName("asdf");
-        workout.setTrainerId("admin");
+        workout.setTrainer(User.builder().id("admin").build());
         workoutService.addWorkout(workout);
 
         Review review1 = new Review();
         review1.setContent("asdf");
-        review1.setUserId("admin");
-        review1.setWorkoutId(1);
+        review1.setUser(User.builder().id("admin").build());
+        review1.setWorkout(Workout.builder().workoutId(1).build());
         review1.setTitle("sdfkfk");
         review1.setScore(5);
 

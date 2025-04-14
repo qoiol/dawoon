@@ -29,7 +29,7 @@ public class JpaLikeyRepository implements LikeyRepository {
 
     @Override
     public List<Likey> findByReviewId(Long reviewId) {
-        em.createQuery("select l from Likey where l.reviewId = :reviewId").setParameter("reviewId", reviewId).getResultList();
+        em.createQuery("select l from Likey l where l.review.id = :reviewId").setParameter("reviewId", reviewId).getResultList();
         return null;
     }
 
@@ -50,6 +50,16 @@ public class JpaLikeyRepository implements LikeyRepository {
 
     @Override
     public void delete(Likey likey) {
+
+    }
+
+    public boolean existsByReviewAndUser(Likey likey) {
+        int result = em.createQuery("select l from Likey l where l.review.id = :reviewId and l.user.id = :userId")
+                .setParameter("reviewId", likey.getReview().getId())
+                .setParameter("userId", likey.getUser().getId())
+                .getFirstResult();
+
+        return result == 1;
 
     }
 }

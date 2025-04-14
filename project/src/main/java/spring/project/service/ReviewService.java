@@ -47,10 +47,10 @@ public class ReviewService {
     }
 
     public String clickLikey(Likey likey) {
-        if(likeyRepository.findById(likey.getLikeyId()) != null)
+        if(likeyRepository.existsByReviewAndUser(likey))
             return "이미 추천했습니다.";
         likeyRepository.save(likey);
-        Review review = reviewRepository.findById(likey.getLikeyId().getReviewId()).get();
+        Review review = reviewRepository.findById(likey.getReview().getId()).get();
         review.setLikeCount(review.getLikeCount()+1);
         reviewRepository.update(review);
         return null;

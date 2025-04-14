@@ -30,19 +30,17 @@ public class JpaReviewRepository implements ReviewRepository{
 
     @Override
     public Optional<Review> findById(Long id) {
-        return Optional.ofNullable(em.createQuery("select new spring.project.domain.Review(r.id, r.userId, r.workoutId, r.title, r.content, r.score, r.likeCount, r.postedDate, " +
-                "w.workoutName, u.name) from review r, Workout w, userinfo u where r.id = :id and w.workoutId = r.workoutId and w.trainerId = u.id", Review.class).setParameter("id", id).getSingleResult());
+        return Optional.ofNullable(em.createQuery("select r from review r where r.id = :id", Review.class).setParameter("id", id).getSingleResult());
     }
 
     @Override
     public List<Review> findAllByWorkoutIdAndTrainerId(String keyword, Long workoutId, String orderby) {
-        StringBuilder query = new StringBuilder("select new spring.project.domain.Review(r.id, r.userId, r.workoutId, r.title, r.content, r.score, r.likeCount, r.postedDate, " +
-                "w.workoutName, u.name) from review r, Workout w, userinfo u where w.workoutId = r.workoutId and w.trainerId = u.id");
+        StringBuilder query = new StringBuilder("select r from review r where r.id is not null");
 
         if(keyword != null)
             query.append(" and ((r.title Like '%"+ keyword + "%') OR (r.content Like '%"+ keyword + "%'))");
         if(workoutId != null)
-            query.append(" and r.workoutId = "+ workoutId);
+            query.append(" and r.workout.id = "+ workoutId);
         query.append(" order by "+orderby+" desc");
 
         return em.createQuery(query.toString(), Review.class).getResultList();

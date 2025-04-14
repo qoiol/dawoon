@@ -65,4 +65,9 @@ public class MemoryLikeyRepository implements LikeyRepository{
     public void delete(Likey likey) {
 
     }
+
+    @Override
+    public boolean existsByReviewAndUser(Likey likey) {
+        return false;
+    }
 }

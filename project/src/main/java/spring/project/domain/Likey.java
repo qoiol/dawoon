@@ -1,12 +1,28 @@
 package spring.project.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Likey {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "reviewId")
+    private Review review;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+
 
 //    @Id
 //    private long reviewId;
@@ -29,14 +45,14 @@ public class Likey {
 //        this.userId = userId;
 //    }
 
-    @EmbeddedId
-    private LikeyId likeyId;
-
-    public LikeyId getLikeyId() {
-        return likeyId;
-    }
-
-    public void setLikeyId(LikeyId likeyId) {
-        this.likeyId = likeyId;
-    }
+//    @EmbeddedId
+//    private LikeyId likeyId;
+//
+//    public LikeyId getLikeyId() {
+//        return likeyId;
+//    }
+//
+//    public void setLikeyId(LikeyId likeyId) {
+//        this.likeyId = likeyId;
+//    }
 }

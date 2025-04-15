@@ -1,4 +1,4 @@
-package spring.project.controller;
+package spring.project.dto;
 
 public class ReviewForm {
     String title;

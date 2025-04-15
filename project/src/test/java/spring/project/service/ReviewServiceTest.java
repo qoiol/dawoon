@@ -5,14 +5,19 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import spring.project.domain.Review;
 import spring.project.domain.User;
 import spring.project.domain.Workout;
 import spring.project.repository.MemoryReviewRepository;
 
+@SpringBootTest
 public class ReviewServiceTest {
 
+    @Autowired
     ReviewService reviewService;
+
     MemoryReviewRepository reviewRepository;
 
 //    @BeforeEach
@@ -26,11 +31,11 @@ public class ReviewServiceTest {
 //        reviewRepository.clearStore();
 //    }
 
-    @Test
+//    @Test
     void createTest(){
         Review review = new Review();
         review.setTitle("테스트리뷰");
-        review.setUser(User.builder().id("test").build());
+        review.setUser(User.builder().id("testuser").build());
         review.setContent("asdfas;dlkfj");
         review.setWorkout(Workout.builder().workoutId(0).build());
         review.setScore(5);

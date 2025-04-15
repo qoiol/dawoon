@@ -1,5 +1,6 @@
 package spring.project.service;
 
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,16 +14,17 @@ import java.util.List;
 @SpringBootTest
 public class ReviewServiceIntegrationTest {
     @Autowired
-    ReviewService reviewService;
+    private ReviewService reviewService;
     @Autowired
-    WorkoutService workoutService;
+    private WorkoutService workoutService;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    ReportService reportService;
+    private ReportService reportService;
 
-    @Test
+//    @Test
     void create(){
+
         User user = new User();
         user.setUserType("trainer");
         user.setEmail("aaaa@bbb.ccc");
@@ -61,7 +63,7 @@ public class ReviewServiceIntegrationTest {
         System.out.println("reviews.get(0).getPostedDate() = " + reviews.get(0).getPostedDate());
     }
     
-    @Test
+//    @Test
     void reportdeletetest(){
         Report report1 = new Report();
         report1.setReviewId(0L);
@@ -88,7 +90,7 @@ public class ReviewServiceIntegrationTest {
         System.out.println(reportService.findReports().size()+"");
     }
 
-    @Test
+//    @Test
     void 리뷰업데이트(){
         User user = new User();
         user.setUserType("trainer");

@@ -4,9 +4,7 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TransactionRequiredException;
 import spring.project.domain.Likey;
-import spring.project.domain.LikeyId;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class JpaLikeyRepository implements LikeyRepository {
@@ -20,11 +18,6 @@ public class JpaLikeyRepository implements LikeyRepository {
     public Likey save(Likey likey) throws EntityExistsException, IllegalArgumentException, TransactionRequiredException {
         em.persist(likey);
         return likey;
-    }
-
-    @Override
-    public Likey findById(LikeyId likeyId) {
-        return em.find(Likey.class, likeyId);
     }
 
     @Override

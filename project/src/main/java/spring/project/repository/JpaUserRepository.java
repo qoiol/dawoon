@@ -29,6 +29,6 @@ public class JpaUserRepository implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return em.createQuery("select u from user u", User.class).getResultList();
+        return em.createQuery("select u from userinfo u", User.class).getResultList();
     }
 }

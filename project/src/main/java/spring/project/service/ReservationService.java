@@ -1,12 +1,14 @@
 package spring.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Reservation;
 import spring.project.repository.ReservationRepository;
 
 import java.util.List;
 
+@Service
 @Transactional
 public class ReservationService {
 

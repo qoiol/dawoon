@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 //@Service
-@Transactional // <- jpa 사용하면 service 대신 붙여줘야함
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
 
@@ -38,7 +38,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User login(User user){
+    public User login(User user) {
         Optional<User> result = userRepository.findById(user.getId());
 
         if(!result.isPresent()){

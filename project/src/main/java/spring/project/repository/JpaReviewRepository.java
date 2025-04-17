@@ -38,10 +38,10 @@ public class JpaReviewRepository implements ReviewRepository{
         StringBuilder query = new StringBuilder("select r from review r where r.id is not null");
 
         if(keyword != null)
-            query.append(" and ((r.title Like '%"+ keyword + "%') OR (r.content Like '%"+ keyword + "%'))");
+            query.append(" and ((r.title Like '%").append(keyword).append("%') OR (r.content Like '%").append(keyword).append("%'))");
         if(workoutId != null)
-            query.append(" and r.workout.id = "+ workoutId);
-        query.append(" order by "+orderby+" desc");
+            query.append(" and r.workout.workoutId = ").append(workoutId);
+        query.append(" order by ").append(orderby).append(" desc");
 
         return em.createQuery(query.toString(), Review.class).getResultList();
     }

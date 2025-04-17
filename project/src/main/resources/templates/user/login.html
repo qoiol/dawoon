@@ -30,6 +30,12 @@
         <h6 class="text-danger" th:if="${exception}" th:text="${message}"/>
     </div>
     <form name="form" method="POST" th:action="@{/user/login}">
+        <div class="form-group" id="userType">
+            <label for="user">일반회원</label>
+            <input type="radio" id="user" name="userType" class="form-control" value="user" checked>
+            <label for="trainer">강사</label>
+            <input type="radio" id="trainer" name="userType" class="form-control" value="trainer">
+        </div>
         <div class="form-group" id="id">
             <label for="id">아이디</label>
             <input type="text" name="id" class="form-control" placeholder="아이디">
@@ -42,6 +48,7 @@
             <input type="button" class="btn btn-primary" value="로그인" onClick="login()">
             <a th:href="@{/user/create}" class="btn btn-link">회원 가입</a>
         </div>
+        <input hidden name="referer" th:value="${referer}">
     </form>
 </section>
 <div th:insert="~{footer :: footer}"></div>

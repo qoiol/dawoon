@@ -35,7 +35,7 @@
                         <a style="text-decoration: none; color: inherit;"
                            th:href="@{/review}">리뷰</a>
                     </div>
-                    <div class="col">
+                    <div class="col" th:if="${session.userId != null}">
                         <a style="text-decoration: none; color: inherit;">마이페이지</a>
                     </div>
                     <div class="col" th:if="${session.userId != null}">
@@ -44,11 +44,11 @@
                     </div>
                     <div class="col" th:if="${session.userId == null}">
                         <a style="text-decoration: none; color: inherit;"
-                           th:href="@{/user/login/form}">로그인</a>
+                           th:href="@{/user/login}">로그인</a>
                     </div>
                     <div class="col" th:if="${session.userId == null}">
                         <a style="text-decoration: none; color: inherit;"
-                           th:href="@{/user/create/form}">회원가입</a>
+                           th:href="@{/user/create}">회원가입</a>
                     </div>
 
                 </div>

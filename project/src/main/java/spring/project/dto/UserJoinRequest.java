@@ -1,6 +1,14 @@
-package spring.project.controller;
+package spring.project.dto;
 
-public class CreateForm {
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserJoinRequest {
     private String id;
     private String name;
     private String password;
@@ -55,4 +63,5 @@ public class CreateForm {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
 }

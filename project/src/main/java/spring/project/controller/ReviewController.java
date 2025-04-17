@@ -1,19 +1,25 @@
 package spring.project.controller;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import spring.project.domain.*;
+import spring.project.dto.ReportForm;
+import spring.project.dto.ReviewForm;
+import spring.project.dto.ReviewSearchForm;
 import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
 import spring.project.service.WorkoutService;
-
-import java.util.List;
 
 @Controller
 public class ReviewController {
@@ -29,53 +35,55 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public String reviewPage(Model model, HttpSession session){
-        String keyword = (session.getAttribute("keyword")==null)?null:session.getAttribute("keyword").toString();
-        Long workoutId = (session.getAttribute("sworkoutid")==null)?null:Long.parseLong(session.getAttribute("sworkoutid").toString());
-        String orderby = (session.getAttribute("orderby")==null)?"r.postedDate":session.getAttribute("orderby").toString();
+    public String reviewPage(Model model, HttpSession session, @RequestParam(defaultValue = "", required = false) String keyword
+            , @RequestParam(defaultValue = "", required = false) Long workoutId
+            , @RequestParam(defaultValue = "r.postedDate", required = false) String orderby){
+//        String keyword = (session.getAttribute("keyword")==null)?null:session.getAttribute("keyword").toString();
+//        Long workoutId = (session.getAttribute("sworkoutid")==null)?null:Long.parseLong(session.getAttribute("sworkoutid").toString());
+//        String orderby = (session.getAttribute("orderby")==null)?"r.postedDate":session.getAttribute("orderby").toString();
 
         session.setAttribute("reviewList", reviewService.findReviews(keyword, workoutId, orderby));
         session.setAttribute("wList", workoutService.getAllWorkoutList());
 
-        session.setAttribute("orderby", orderby);
-        session.setAttribute("sworkoutid", workoutId);
-        session.setAttribute("keyword", keyword);
+//        session.setAttribute("orderby", orderby);
+//        session.setAttribute("sworkoutid", workoutId);
+//        session.setAttribute("keyword", keyword);
         return "/review/reviewPage";
     }
 
-    @GetMapping("/review/search")
-    public String reviewSearch(Model model, HttpSession session, ReviewSearchForm reviewSearchForm){
-        String keyword = reviewSearchForm.getKeyword();
-        Long workoutId = reviewSearchForm.getSworkoutid();
-        String orderby = (reviewSearchForm.getOrderby()==null)?"r.postedDate":reviewSearchForm.getOrderby();
+//    @GetMapping("/review/search")
+//    public String reviewSearch(Model model, HttpSession session, ReviewSearchForm reviewSearchForm){
+//        String keyword = reviewSearchForm.getKeyword();
+//        Long workoutId = reviewSearchForm.getSworkoutid();
+//        String orderby = (reviewSearchForm.getOrderby()==null)?"r.postedDate":reviewSearchForm.getOrderby();
+//
+//        session.setAttribute("reviewList", reviewService.findReviews(keyword, workoutId, orderby));
+//        session.setAttribute("wList", workoutService.getAllWorkoutList());
+//
+//        session.setAttribute("orderby", orderby);
+//        session.setAttribute("sworkoutid", workoutId);
+//        session.setAttribute("keyword", keyword);
+//        return "/review/reviewPage";
+//    }
 
-        session.setAttribute("reviewList", reviewService.findReviews(keyword, workoutId, orderby));
-        session.setAttribute("wList", workoutService.getAllWorkoutList());
 
-        session.setAttribute("orderby", orderby);
-        session.setAttribute("sworkoutid", workoutId);
-        session.setAttribute("keyword", keyword);
-        return "/review/reviewPage";
-    }
+    @PostMapping("/review/regist")
+    public String createReview(@Valid ReviewForm reviewForm, BindingResult bindingResult, HttpSession session) {
 
+//        Review review = new Review();
+//
+//        review.setScore(reviewForm.getScore());
+//        review.setTitle(reviewForm.getTitle());
+//        review.setContent(reviewForm.getContent());
+//        review.setWorkout(Workout.builder().workoutId(reviewForm.getWorkoutId()).build());
 
-    @PostMapping("/review/create")
-    public String createReview(ReviewForm reviewForm, HttpSession session) {
+//        review.setUser(User.builder().id(session.getAttribute("userId").toString()).build());
 
-        Review review = new Review();
+        reviewService.createReview(reviewForm, session.getAttribute("userId").toString());
 
-        review.setScore(reviewForm.getScore());
-        review.setTitle(reviewForm.getTitle());
-        review.setContent(reviewForm.getContent());
-        review.setWorkout(Workout.builder().workoutId(reviewForm.getWorkoutId()).build());
-
-        review.setUser(User.builder().id(session.getAttribute("userId").toString()).build());
-
-        reviewService.createReview(review);
-
-        session.setAttribute("orderType", null);
-        session.setAttribute("workoutType", null);
-        session.setAttribute("orderby", null);
+//        session.setAttribute("orderType", null);
+//        session.setAttribute("workoutType", null);
+//        session.setAttribute("orderby", null);
 
         return "redirect:/review";
     }

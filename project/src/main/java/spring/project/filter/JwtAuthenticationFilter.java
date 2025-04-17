@@ -94,7 +94,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //2-3 유효
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                user, null, List.of(new SimpleGrantedAuthority(user.getUserType()))
+                user, null, List.of(new SimpleGrantedAuthority(user.getUserType()), new SimpleGrantedAuthority(user.getId()))
         );
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         log.info("인증 객체: {}", SecurityContextHolder.getContext().getAuthentication());

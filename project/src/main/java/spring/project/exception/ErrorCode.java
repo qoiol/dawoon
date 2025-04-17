@@ -8,8 +8,9 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
 
-    NO_TOKEN(HttpStatus.UNAUTHORIZED, "cannot find tokens");
-
+    NO_TOKEN(HttpStatus.UNAUTHORIZED, "cannot find tokens"),
+    ACCESS_DENIED(HttpStatus.FORBIDDEN, "access denied")
+    ;
 
 
     private HttpStatus status;

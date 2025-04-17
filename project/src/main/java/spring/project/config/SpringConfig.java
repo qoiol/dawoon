@@ -1,8 +1,6 @@
-package spring.project;
+package spring.project.config;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import spring.project.repository.*;
@@ -10,8 +8,6 @@ import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
 import spring.project.service.UserService;
 import spring.project.service.WorkoutService;
-
-import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
@@ -23,10 +19,10 @@ public class SpringConfig {
         this.em = em;
     }
 
-    @Bean
-    public UserService userService() {
-        return new UserService(userRepository());
-    }
+//    @Bean
+//    public UserService userService() {
+//        return new UserService(userRepository(), );
+//    }
 
     @Bean
     public UserRepository userRepository() {

@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
 
-        //2 토큰 O and 유저 정보 x
+        //2 토큰 O
 
         //2-2 유저 정보 x
         String tokenUserId = JwtTokenUtils.userId(token.getValue(), key);

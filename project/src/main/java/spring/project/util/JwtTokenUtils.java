@@ -1,6 +1,7 @@
 package spring.project.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -23,11 +24,15 @@ public class JwtTokenUtils {
     }
 
     public static boolean isExpired(String token, String key) {
-        Date expiration = extractClaims(token, key).getExpiration();
-        return expiration.before(new Date());
+        try {
+            Date expiration = extractClaims(token, key).getExpiration();
+            return expiration.before(new Date());
+        } catch (ExpiredJwtException e) {
+            return true;
+        }
     }
 
-    private static Claims extractClaims(String token, String key) {
+    private static Claims extractClaims(String token, String key) throws ExpiredJwtException {
         return Jwts.parserBuilder().setSigningKey(getKey(key))
                 .build().parseClaimsJws(token).getBody();
     }
@@ -36,10 +41,11 @@ public class JwtTokenUtils {
         Claims claims = Jwts.claims();
         claims.put("userId", userId);
 
+        Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+expiredTimeMs))
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + expiredTimeMs))
                 .signWith(getKey(key), SignatureAlgorithm.HS256)
                 .compact();
     }

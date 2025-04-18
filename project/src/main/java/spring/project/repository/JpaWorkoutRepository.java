@@ -36,13 +36,13 @@ public class JpaWorkoutRepository implements WorkoutRepository{
 
     @Override
     public List<Workout> findByWorkoutName(String workoutName) {
-        return em.createQuery("select w from Workout w where w.workout.workoutName = :workoutName",
+        return em.createQuery("select w from Workout w left join fetch w.trainer where w.workoutName = :workoutName",
                 Workout.class).setParameter("workoutName", workoutName).getResultList();
     }
 
     @Override
     public List<Workout> findAll() {
-        return em.createQuery("select w from Workout w", Workout.class).getResultList();
+        return em.createQuery("select w from Workout w left join fetch w.trainer", Workout.class).getResultList();
     }
 
     @Override

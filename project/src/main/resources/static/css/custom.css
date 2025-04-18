@@ -1,0 +1,45 @@
+@import url(https://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+/* @import url(https://fonts.googleapis.com/earlyaccess/hanna.css); */
+
+/*input[type=password]{*/
+/*	font-family: '굴림';*/
+/*}*/
+
+/*::placeholder{*/
+/*	font-family:'jeju Gothic'*/
+/*}*/
+
+/*.navar-brand, h1, h2, h3, h4 {*/
+/*	font-family: 'jeju Gothic';*/
+/*}*/
+
+/*h5 {*/
+/*	font-family: 'jeju Gothic';*/
+/*	font-size: 18px;*/
+/*}*/
+
+/*body {*/
+/*	font-family: 'jeju Gothic';*/
+/*}*/
+
+/*h2 {*/
+/*	font-size: 15px;*/
+/*}*/
+
+.star-rating {
+	width: 132px;
+}
+
+.wrap-star, .star-rating span {
+	display: inline-block;
+	height: 25px;
+	overflow: hidden;
+	background: url("/images/star132x50.png") no-repeat;
+}
+
+.star-rating span {
+	background-position: left bottom;
+	line-height: 0;
+	vertical-align: top;
+}

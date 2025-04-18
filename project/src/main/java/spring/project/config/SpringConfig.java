@@ -19,15 +19,10 @@ public class SpringConfig {
         return new JpaUserRepository(em);
     }
 
-    @Bean
-    public ReviewService reviewService() {
-        return new ReviewService(reviewRepository(), likeyRepository());
-    }
-
-    @Bean
-    public ReviewRepository reviewRepository() {
-        return new JpaReviewRepository(em);
-    }
+//    @Bean
+//    public ReviewService reviewService() {
+//        return new ReviewService(reviewRepository(), likeyRepository());
+//    }
 
     @Bean
     public LikeyRepository likeyRepository() {
@@ -58,11 +53,5 @@ public class SpringConfig {
     public ReservationRepository reservationRepository() {
         return new JpaReservationRepository(em);
     }
-
-    @Bean
-    public ReservationService reservationService() {
-        return new ReservationService(reservationRepository());
-    }
-
 }
 

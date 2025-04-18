@@ -1,7 +1,7 @@
 package spring.project.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,17 +13,11 @@ import spring.project.service.UserService;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class MypageController {
 
     private final UserService userService;
     private final ReservationService reservationService;
-
-    @Autowired
-    public MypageController(UserService userService, ReservationService reservationService) {
-        this.userService = userService;
-        this.reservationService =reservationService;
-    }
-
 
     @GetMapping("/mypage")
     public String getReservation(HttpServletRequest request, Model model) {

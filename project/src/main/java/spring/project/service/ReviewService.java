@@ -1,23 +1,33 @@
 package spring.project.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Likey;
 import spring.project.domain.Review;
 import spring.project.domain.User;
 import spring.project.domain.Workout;
 import spring.project.dto.ReviewForm;
-import spring.project.dto.ReviewSearchForm;
+import spring.project.dto.ReviewListRequest;
+import spring.project.dto.ReviewListResponse;
 import spring.project.repository.LikeyRepository;
 import spring.project.repository.ReviewRepository;
 
 import java.util.Calendar;
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class ReviewService {
+
     private final ReviewRepository reviewRepository;
     private final LikeyRepository likeyRepository;
+
+    @Value("${page-info.page-size}")
+    private Integer pageSize;
+    @Value("${page-info.page-block-size}")
+    private int pageBlockSize;
 
     @Transactional
     public long createReview(ReviewForm reviewForm, String userId) {
@@ -64,11 +74,27 @@ public class ReviewService {
         return null;
     }
 
-    public List<Review> findReviews(ReviewSearchForm reviewSearchForm) {
-        return reviewRepository.findAllByWorkoutIdAndTrainerId(
-                reviewSearchForm.getKeyword()
-                , reviewSearchForm.getWorkoutId()
-                , reviewSearchForm.getOrderby()
+    @Transactional
+    public ReviewListResponse findReviews(ReviewListRequest reviewListRequest) {
+        List<Review> reviewList = reviewRepository.findReviewsPage(
+                reviewListRequest.getKeyword()
+                , reviewListRequest.getWorkoutId()
+                , reviewListRequest.getOrderby()
+                , reviewListRequest.getPageNo()
         );
+        int count = reviewRepository.count(reviewListRequest.getKeyword()
+                , reviewListRequest.getWorkoutId()
+                , reviewListRequest.getOrderby()
+        );
+
+        StringBuilder query = new StringBuilder();
+        query.append("/review?keyword=");
+        if (reviewListRequest.getKeyword() != null) query.append(reviewListRequest.getKeyword());
+        query.append("&workoutId=");
+        if (reviewListRequest.getWorkoutId() != null) query.append(reviewListRequest.getWorkoutId());
+        query.append("&orderby=").append(reviewListRequest.getOrderby())
+                .append("&pageNo=");
+
+        return new ReviewListResponse(reviewList, reviewListRequest.getPageNo(), count, pageSize, pageBlockSize, query.toString());
     }
 }

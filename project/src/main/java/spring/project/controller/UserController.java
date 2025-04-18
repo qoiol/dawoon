@@ -13,12 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.project.domain.User;
 import spring.project.dto.UserJoinRequest;
 import spring.project.dto.LoginRequest;
 import spring.project.service.UserService;
 import spring.project.util.JwtTokenUtils;
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -59,30 +61,28 @@ public class UserController {
 //    }
 
     @PostMapping("/user/login") //로그인
-    public String login(HttpSession session, LoginRequest loginRequest, Model model, HttpServletResponse response,
-                        @RequestParam(required = false, defaultValue = "") String referer){
-
-
-        log.info("user login referer: {}", referer);
+    public String login(HttpSession session, LoginRequest loginRequest, HttpServletResponse response,
+                        @RequestParam(required = false, defaultValue = "") String referer) {
         String token;
+        String redirectUri = (!referer.isEmpty() ? URLDecoder.decode(referer, StandardCharsets.UTF_8):"/");
         try{
             token = userService.login2(loginRequest);
             JwtTokenUtils.addCookie("token", token, response);
         } catch (Exception e){
-            model.addAttribute("exception", true);
-            model.addAttribute("message", e.getMessage());
-            return "/user/login?referer="+referer;
+            try {
+                response.setContentType("text/html;charset=utf-8");
+                response.getWriter().append("<script>alert('").append(e.getMessage()).append("');location.href='/user/login?referer=").append(referer).append("';</script>");
+            } catch (IOException ex) {
+                log.error("login - error - ioexception");
+            }
+            return "/user/login";
         }
 
         session.setAttribute("userId", loginRequest.getId());
         session.setAttribute("userType", loginRequest.getUserType());
         session.setMaxInactiveInterval(3600);
 
-        if(!referer.isEmpty()) {
-            return "redirect:"+ URLDecoder.decode(referer, StandardCharsets.UTF_8);
-        }
-
-        return "redirect:/";
+        return redirectUri;
     }
 
     @GetMapping("/user/logout") //로그아웃 -> 메인페이지로
@@ -102,22 +102,12 @@ public class UserController {
     public String create(@Valid UserJoinRequest userJoinRequest, BindingResult bindingResult, Model model){
 
         try{
-//            userService.validateDuplicateUser(createForm.getId());
             userService.join2(userJoinRequest);
-        }catch (Exception e){
+        } catch (Exception e){
             model.addAttribute("exception", true);
             model.addAttribute("message", e.getMessage());
             return "/user/create";
         }
-
-//        User user = new User();
-//        user.setId(createForm.getId());
-//        user.setEmail(createForm.getEmail());
-//        user.setUserType(createForm.getUserType());
-//        user.setPassword(createForm.getPassword());
-//        user.setName(createForm.getName());
-
-//        userService.join(user);
 
         return "redirect:/";
     }

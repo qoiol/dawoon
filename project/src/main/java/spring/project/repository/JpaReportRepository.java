@@ -1,8 +1,6 @@
 package spring.project.repository;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaDelete;
-import org.hibernate.query.sqm.tree.delete.SqmDeleteStatement;
 import spring.project.domain.Report;
 
 import java.util.List;

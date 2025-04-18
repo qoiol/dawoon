@@ -1,6 +1,5 @@
 package spring.project.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
 import lombok.*;
 

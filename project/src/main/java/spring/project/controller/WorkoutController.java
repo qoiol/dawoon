@@ -34,16 +34,11 @@ public class WorkoutController {
 
     //전체 Workout 리스트를 가져와서 "list"뷰에 전달하는 메소드
     @RequestMapping("/workout/list")
-    public String getAllWorkoutList(Model model){
+    public String getAllWorkoutList(Model model) {
         List<Workout> workoutList = workoutService.getAllWorkoutList();
+        model.addAttribute("workoutList", workoutList);
+        return "workout/workoutList";
 
-//        if(workoutList.isEmpty()){ //운동 리스트가 비어있으면 에러페이지로
-//            return "workout/workoutError";
-//        }
-//        else{
-            model.addAttribute("workoutList", workoutList);
-            return "workout/workoutList";
-//        }
     }
 
     //운동 추가 폼으로 이동하는 메소드 // 됨
@@ -54,20 +49,20 @@ public class WorkoutController {
 
     //운동 추가 하기 , 됨
     @PostMapping("/workout/add")
-    public String addWorkout(Workout workout, HttpServletRequest request){
-        String trainerId = (String)request.getSession().getAttribute("userId");
+    public String addWorkout(Workout workout, HttpServletRequest request) {
+        String trainerId = (String) request.getSession().getAttribute("userId");
         Optional<User> user = userService.findOne(trainerId);
 
         workout.setTrainer(User.builder().id(trainerId).build());
 
         //workoutService를 사용하여 workout에 추가
         workoutService.addWorkout(workout);
-        System.out.println("Controller- workoutId가 "+workout.getWorkoutId());
+        System.out.println("Controller- workoutId가 " + workout.getWorkoutId());
         return "redirect:/workout/list";
     }
 
     // 운동 삭제 하기
-    @RequestMapping ("/workout/delete/{workoutId}")
+    @RequestMapping("/workout/delete/{workoutId}")
     public String deleteWorkout(@PathVariable long workoutId) {
         System.out.println("delete Controller in");
         workoutService.deleteWorkout(workoutId);
@@ -89,19 +84,19 @@ public class WorkoutController {
 //        //WorkoutService를 사용하여 운동을 신청
 //        workoutService.reserveWorkout(workoutId);
 //        return "redirect:/workout/list";
-  //  }
+    //  }
 
     //해당 keyword로 검색하기
     @GetMapping("/workout/search")
-    public String searchWorkout(@RequestParam ("workoutDifficulty") String workoutDifficulty,
-                                @RequestParam ("workoutType") String workoutType, Model model) {
+    public String searchWorkout(@RequestParam("workoutDifficulty") String workoutDifficulty,
+                                @RequestParam("workoutType") String workoutType, Model model) {
         //keyword를 사용하여 검색한 리스트를 반환
         System.out.println(workoutDifficulty);
         System.out.println(workoutType);
         List<Workout> workoutList = workoutService.findByKeyword(workoutDifficulty, workoutType);
 
         //System.out.println(workoutList.get(0).getWorkoutType());
-        model.addAttribute("workoutList",workoutList);
+        model.addAttribute("workoutList", workoutList);
         return "/workout/workoutList";
     }
 

@@ -47,8 +47,6 @@ public class ReviewController {
         model.addAttribute("reviewList", review);
         model.addAttribute("wList", workoutService.getAllWorkoutList());
 
-//        log.info("review: {}", review.get(0).toString());
-
         return "/review/reviewPage";
     }
 

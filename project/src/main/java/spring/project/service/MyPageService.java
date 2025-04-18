@@ -1,14 +1,9 @@
 package spring.project.service;
 
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.User;
-import spring.project.repository.MyPageRepository;
-import spring.project.repository.ReservationRepository;
 import spring.project.repository.UserRepository;
 
 import java.util.Optional;
@@ -18,15 +13,6 @@ import java.util.Optional;
 public class MyPageService {
 
     private UserRepository userRepository;
-    private MyPageRepository myPageRepository;
-
-//    public MyPageService(MyPageRepository myPageRepository){
-//        this.myPageRepository = myPageRepository;
-//    }
-//
-//    public MyPageService(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
 
     //userId로 유저 객체찾기
     public Optional<User> findById(String userId){

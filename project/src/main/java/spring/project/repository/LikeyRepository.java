@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface LikeyRepository {
     Likey save(Likey likey);
-//    Likey findById(LikeyId likeyId);
     List<Likey> findByReviewId(Long reviewId);
     List<Likey> findByUserId(String userId);
     Long countByReviewId(Long reviewId);

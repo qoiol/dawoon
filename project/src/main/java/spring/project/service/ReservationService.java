@@ -1,7 +1,5 @@
 package spring.project.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Reservation;
 import spring.project.repository.ReservationRepository;
@@ -26,11 +24,5 @@ public class ReservationService {
     public Reservation add(Reservation reservation) {
         return reservationRepository.save(reservation);
     }
-
-//    // delete
-//    public void delete(long reservationId) {
-//        reservationRepository.delete(reservationId);
-//    }
-
 
 }

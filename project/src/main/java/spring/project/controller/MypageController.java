@@ -41,11 +41,3 @@ public class MypageController {
         return "/user/myPage";
     }
 }
-//        if(reservationList.isEmpty()){ //예약 리스트가 비어있으면 에러페이지로
-//            return "/workout/workoutError";
-//        }
-//        else{
-//            model.addAttribute("reservationList",reservationList);
-//            return "/myPage";
-//        }
-//}

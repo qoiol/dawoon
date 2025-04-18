@@ -36,26 +36,6 @@ public class JpaReservationRepository implements ReservationRepository{
                 .getResultList();
     }
 
-//    public List<Reservation> findAll() {
-//        return em.createQuery("select r from Reservation r", Reservation.class).getResultList();
-//    }
-
-    //    @Override
-//    public void delete(long reservationId) {
-//
-//    }
-//
-//    @Override
-//    public Reservation update(Reservation reservation) {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<Reservation> findByUserId(String userId) {
-//        return null;
-//
-//    }
-//
     private synchronized Long generateReservationId() {
         return ++sequence;
     }

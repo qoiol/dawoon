@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>에러</title>
@@ -31,7 +31,6 @@
             <td th:text="${user.id}"></td>
             <td th:text="${user.name}"></td>
             <td th:text="${user.email}"></td>
-            <td th:text="${user.phone}"></td>
         </tr>
         </tbody>
     </table>
@@ -68,11 +67,11 @@
                 <td th:text="${res.workoutDifficulty}"></td>
                 <td th:text="${res.status}"></td>
                 <td>
-                    <a th:if="${res.status eq '대기'}" th:href="@{/user/myPage/cancel(reservationId=${res.reservationId}, resUserId=${res.userId}, resWorkoutId=${res.workoutId})}"
+                    <a th:if="${res.status eq '대기'}" th:href="@{/user/mypage/cancel(reservationId=${res.reservationId}, resUserId=${res.userId}, resWorkoutId=${res.workoutId})}"
                        onclick="return confirm('취소하시겠습니까?')">취소</a>
                 </td>
                 <td>
-                    <a th:if="${res.status eq '취소' or res.status eq '거절'}" th:href="@{/user/myPage/delete(reservationId=${res.reservationId})}">삭제</a>
+                    <a th:if="${res.status eq '취소' or res.status eq '거절'}" th:href="@{/user/mypage/delete(reservationId=${res.reservationId})}">삭제</a>
                 </td>
             </tr>
         </table>
@@ -80,6 +79,7 @@
             예약내역이 없습니다.<br><br><br>
         </div>
     </div>
+
 
 <!--    &lt;!&ndash; 수정 또는 삭제가 실패한 경우 exception 객체에 저장된 오류 메시지를 출력 &ndash;&gt;-->
 <!--    <div th:if="${updateFailed or deleteFailed}">-->

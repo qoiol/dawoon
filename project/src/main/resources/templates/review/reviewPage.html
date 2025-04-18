@@ -22,8 +22,8 @@
     <form method="get" th:action="@{/review}" class="form-inline mt-3">
         <select name="workoutId" class="form-control mx-1 mt-2">
             <option th:value="${null}">전체</option>
-            <option th:each="w : ${wList}" th:selected="${w.getWorkoutId() eq workoutId}"
-                    th:value="${w.getWorkoutId()}" th:text="${w.toString()}"/>
+            <option th:each="w : ${wList}" th:selected="${w.workoutId eq workoutId}"
+                    th:value="${w.workoutId}" th:text="${w.toString()}"/>
         </select>
         <select name="orderby" class="form-control mx-1 mt-2">
             <option value="r.postedDate">최신순</option>
@@ -58,7 +58,7 @@
                          class="wrap-star">
 
                         <div class='star-rating'>
-                            <span th:style="width=${review.score*20}%"></span>
+                            <span th:style="${'width='+review.score*20 +'%'}"></span>
                         </div>
                     </div>
                 </div>
@@ -78,9 +78,9 @@
                        th:onclick="report([[${review.title +'(작성자: '+review.user.id+')' }]], [[${review.id}]])">신고</a>
 
                     <!-- 작성자==현재로그인유저 일 경우 삭제버튼 표시 -->
-                    <a class="btn btn-danger" th:if="${session.userId eq review.getUserId()}"
+                    <a class="btn btn-danger" th:if="${session.userId eq review.user.id}"
                        onclick="return confirm('삭제하시겠습니까?')"
-                       th:href="@{/review/{id}/delete(id=${review.getId()})}">삭제</a>
+                       th:href="@{/review/{id}/delete(id=${review.id})}">삭제</a>
                 </div>
             </div>
         </div>
@@ -105,22 +105,22 @@
                     <div class="form-row">
                         <!-- Exercise List 불러오기 -->
                         <div class="form-group col-sm-6">
-                            <label>운동 선택</label>
+                            <label for="workoutId">운동 선택</label>
                             <select id="workoutId" name="workoutId" class="form-control">
-                                <option th:each="w : ${session.wList}"
-                                        th:text="${w.getWorkoutName() + '-' + w.getTrainerName()}"
-                                        th:value="${w.getWorkoutId()}"/>
+                                <option th:each="w : ${wList}"
+                                        th:text="${w.workoutName + '-' + w.trainer.name}"
+                                        th:value="${w.workoutId}"/>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>제목</label> <input type="text" name="title" class="form-control" maxlength="30">
+                        <label for="title">제목</label> <input id="title" type="text" name="title" class="form-control" maxlength="30">
                     </div>
 
                     <div class="form-group">
-                        <label>내용</label>
-                        <textarea name="content" class="form-control" maxlength="2048"
+                        <label for="content">내용</label>
+                        <textarea id="content" name="content" class="form-control" maxlength="2048"
                                   style="height: 180px;"></textarea>
                     </div>
 

@@ -38,28 +38,6 @@ public class UserController {
         return "/user/login";
     }
 
-//    @PostMapping("/user/login") //로그인
-//    public String login(HttpSession session, LoginForm loginForm, Model model){
-//        //로그인 기능 구현
-//        User loginUser = new User();
-//        loginUser.setId(loginForm.getId());
-//        loginUser.setPassword(loginForm.getPassword());
-//
-//        try{
-//            loginUser = userService.login(loginUser);
-//        }catch (Exception e){
-//            model.addAttribute("exception", true);
-//            model.addAttribute("message", e.getMessage());
-//            return "/user/login";
-//        }
-//
-//        session.setAttribute("userId", loginUser.getId());
-//        session.setAttribute("userType", loginUser.getUserType());
-//        session.setMaxInactiveInterval(3600);
-//
-//        return "redirect:/";
-//    }
-
     @PostMapping("/user/login") //로그인
     public String login(HttpSession session, LoginRequest loginRequest, HttpServletResponse response,
                         @RequestParam(required = false, defaultValue = "") String referer) {
@@ -82,7 +60,7 @@ public class UserController {
         session.setAttribute("userType", loginRequest.getUserType());
         session.setMaxInactiveInterval(3600);
 
-        return redirectUri;
+        return "redirect:"+redirectUri;
     }
 
     @GetMapping("/user/logout") //로그아웃 -> 메인페이지로
@@ -111,8 +89,4 @@ public class UserController {
 
         return "redirect:/";
     }
-
-
-
-
 }

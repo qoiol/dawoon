@@ -2,6 +2,7 @@ package spring.project.controller;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,9 @@ import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
 import spring.project.service.WorkoutService;
 
+import java.util.List;
+
+@Log4j2
 @Controller
 public class ReviewController {
     private final ReviewService reviewService;
@@ -39,13 +43,16 @@ public class ReviewController {
             return "redirect:/review";
         }
 
-        model.addAttribute("reviewList", reviewService.findReviews(reviewSearchForm));
+        List<Review> review = reviewService.findReviews(reviewSearchForm);
+        model.addAttribute("reviewList", review);
         model.addAttribute("wList", workoutService.getAllWorkoutList());
+
+//        log.info("review: {}", review.get(0).toString());
 
         return "/review/reviewPage";
     }
 
-    @PostMapping("/review/regist")
+    @PostMapping("/review/create")
     public String createReview(@Valid ReviewForm reviewForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession session) {
         try {
             reviewService.createReview(reviewForm, session.getAttribute("userId").toString());

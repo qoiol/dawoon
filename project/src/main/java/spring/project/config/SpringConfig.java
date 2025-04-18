@@ -4,10 +4,7 @@ import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import spring.project.repository.*;
-import spring.project.service.ReportService;
-import spring.project.service.ReviewService;
-import spring.project.service.UserService;
-import spring.project.service.WorkoutService;
+import spring.project.service.*;
 
 @Configuration
 public class SpringConfig {
@@ -62,6 +59,16 @@ public class SpringConfig {
     @Bean
     public WorkoutRepository workoutRepository() {
         return new JpaWorkoutRepository(em);
+    }
+
+    @Bean
+    public ReservationRepository reservationRepository() {
+        return new JpaReservationRepository(em);
+    }
+
+    @Bean
+    public ReservationService reservationService() {
+        return new ReservationService(reservationRepository());
     }
 
 }

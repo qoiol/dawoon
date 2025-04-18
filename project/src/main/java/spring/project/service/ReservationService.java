@@ -8,13 +8,11 @@ import spring.project.repository.ReservationRepository;
 
 import java.util.List;
 
-@Service
 @Transactional
 public class ReservationService {
 
     private ReservationRepository reservationRepository;
 
-    @Autowired
     public ReservationService(ReservationRepository reservationRepository){
         this.reservationRepository = reservationRepository;
     }

@@ -1,9 +1,13 @@
 package spring.project.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 import spring.project.domain.Likey;
 import spring.project.domain.Review;
 import spring.project.domain.User;
+import spring.project.domain.Workout;
 import spring.project.dto.ReviewForm;
 import spring.project.dto.ReviewSearchForm;
 import spring.project.repository.LikeyRepository;
@@ -12,14 +16,10 @@ import spring.project.repository.ReviewRepository;
 import java.util.Calendar;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final LikeyRepository likeyRepository;
-
-    public ReviewService(ReviewRepository reviewRepository, LikeyRepository likeyRepository) {
-        this.reviewRepository = reviewRepository;
-        this.likeyRepository = likeyRepository;
-    }
 
     @Transactional
     public long createReview(ReviewForm reviewForm, String userId) {
@@ -30,6 +30,7 @@ public class ReviewService {
                 .likeCount(0)
                 .postedDate(Calendar.getInstance().getTime())
                 .user(User.builder().id(userId).build())
+                .workout(Workout.builder().workoutId(reviewForm.getWorkoutId()).build())
                 .build();
 
         reviewRepository.save(review);

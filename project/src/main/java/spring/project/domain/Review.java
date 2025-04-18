@@ -12,7 +12,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -28,9 +27,4 @@ public class Review {
     private int likeCount;
     @Temporal(TemporalType.TIMESTAMP)
     private Date postedDate;
-
-    @Transient
-    private String workoutName;
-    @Transient
-    private String trainerName;
 }

@@ -10,9 +10,9 @@ import spring.project.domain.Workout;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class JpaWorkoutRepository implements WorkoutRepository{
 
-    @PersistenceContext
     private final EntityManager em;
 
     public JpaWorkoutRepository(EntityManager em){

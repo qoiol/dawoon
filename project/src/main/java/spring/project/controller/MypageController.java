@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import spring.project.domain.Reservation;
 import spring.project.domain.User;
 import spring.project.service.ReservationService;
@@ -25,7 +25,7 @@ public class MypageController {
     }
 
 
-    @RequestMapping("/myPage")
+    @GetMapping("/mypage")
     public String getReservation(HttpServletRequest request, Model model) {
         System.out.println("mypage controller IN");
         String userId = (String)request.getSession().getAttribute("userId");
@@ -35,12 +35,10 @@ public class MypageController {
         //userId로 예약목록 받아와서
         List<Reservation> reservationList = reservationService.findByUserId(userId);
 
-        System.out.println("reservationList size : "+ reservationList.size());
-
         model.addAttribute("user", user);
         model.addAttribute("reservationList",reservationList);
 
-        return "user/myPage";
+        return "/user/myPage";
     }
 }
 //        if(reservationList.isEmpty()){ //예약 리스트가 비어있으면 에러페이지로

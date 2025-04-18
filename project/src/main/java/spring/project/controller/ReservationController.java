@@ -52,7 +52,7 @@ public class ReservationController {
         reservation.setUserId(userId);
         reservation.setWorkoutId(workoutId);
         System.out.println("reservation workoutId = " + workoutId);
-        reservation.setTrainerName(workout.get().getTrainerName());
+        reservation.setTrainerName(workout.get().getTrainer().getName());
         reservation.setWorkoutName(workout.get().getWorkoutName());
         reservation.setWorkoutType(workout.get().getWorkoutType());
         reservation.setWorkoutDifficulty(workout.get().getWorkoutDifficulty());

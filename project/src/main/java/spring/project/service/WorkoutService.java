@@ -1,7 +1,5 @@
 package spring.project.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Workout;
 import spring.project.repository.WorkoutRepository;
@@ -26,14 +24,8 @@ public class WorkoutService {
     //운동 추가, 신청
     public void addWorkout(Workout workout){
 
-        System.out.println("Service workoutId11111가 "+workout.getWorkoutId());
         workoutRepository.save(workout);
-        System.out.println("Service workoutId2222가 "+workout.getWorkoutId());
-//        if(validateDuplicateWorkout(workout.getWorkoutId())) {
-//            workoutRepository.save(workout);
-//        } else {
-//            throw new RuntimeException("이미 같은 운동이 존재합니다.");
-//        }
+
     }
 
     //workoutId로 Workout 엔티티 하나 가져오기

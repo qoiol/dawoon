@@ -1,6 +1,5 @@
 package spring.project.service;
 
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Report;
 import spring.project.repository.ReportRepository;

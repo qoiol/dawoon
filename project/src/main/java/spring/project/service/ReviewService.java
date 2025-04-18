@@ -1,9 +1,7 @@
 package spring.project.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 import spring.project.domain.Likey;
 import spring.project.domain.Review;
 import spring.project.domain.User;

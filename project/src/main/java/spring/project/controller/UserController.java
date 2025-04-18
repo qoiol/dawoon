@@ -1,7 +1,5 @@
 package spring.project.controller;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -13,8 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import spring.project.domain.User;
 import spring.project.dto.UserJoinRequest;
 import spring.project.dto.LoginRequest;
 import spring.project.service.UserService;
@@ -44,7 +40,7 @@ public class UserController {
         String token;
         String redirectUri = (!referer.isEmpty() ? URLDecoder.decode(referer, StandardCharsets.UTF_8):"/");
         try{
-            token = userService.login2(loginRequest);
+            token = userService.login(loginRequest);
             JwtTokenUtils.addCookie("token", token, response);
         } catch (Exception e){
             try {
@@ -80,7 +76,7 @@ public class UserController {
     public String create(@Valid UserJoinRequest userJoinRequest, BindingResult bindingResult, Model model){
 
         try{
-            userService.join2(userJoinRequest);
+            userService.join(userJoinRequest);
         } catch (Exception e){
             model.addAttribute("exception", true);
             model.addAttribute("message", e.getMessage());

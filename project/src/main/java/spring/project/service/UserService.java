@@ -25,14 +25,8 @@ public class UserService {
     @Value("${jwt.expired-time-ms}")
     private long expiredTimeMs;
 
-    public String join(User user){
-        validateDuplicateUser(user.getId());
-        userRepository.save(user);
-        return user.getId();
-    }
-
     @Transactional
-    public User join2(UserJoinRequest userinfo) {
+    public User join(UserJoinRequest userinfo) {
         userRepository.findById(userinfo.getId()).ifPresent( result -> {
             throw new IllegalStateException("이미 사용 중인 아이디 입니다.");
                 });
@@ -64,23 +58,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User login(User user) {
-        Optional<User> result = userRepository.findById(user.getId());
-
-        if(!result.isPresent()){
-            throw new IllegalStateException(user.getId() + "는 존재하지 않는 아이디 입니다.");
-        }
-        result.ifPresent(
-                u -> {
-                    if(!u.getPassword().equals(user.getPassword())){
-                        throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
-                    }
-                }
-        );
-        return result.get();
-    }
-
-    public String login2(LoginRequest loginRequest) {
+    public String login(LoginRequest loginRequest) {
         Optional<User> result = userRepository.findById(loginRequest.getId());
 
         if(result.isEmpty()){
@@ -93,7 +71,6 @@ public class UserService {
                     }
                 }
         );
-
 
         //토큰 생성
         return JwtTokenUtils.generateToken(loginRequest.getId(), secretKey, expiredTimeMs);

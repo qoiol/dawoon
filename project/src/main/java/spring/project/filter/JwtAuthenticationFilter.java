@@ -18,12 +18,10 @@ import spring.project.service.UserService;
 import spring.project.util.JwtTokenUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**

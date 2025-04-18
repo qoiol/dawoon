@@ -1,7 +1,6 @@
 package spring.project.repository;
 
 import jakarta.persistence.EntityManager;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Review;
 

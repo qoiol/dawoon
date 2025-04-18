@@ -1,18 +1,17 @@
 package spring.project.service;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Likey;
 import spring.project.domain.Review;
 import spring.project.domain.User;
 import spring.project.dto.ReviewForm;
+import spring.project.dto.ReviewSearchForm;
 import spring.project.repository.LikeyRepository;
 import spring.project.repository.ReviewRepository;
 
 import java.util.Calendar;
 import java.util.List;
 
-@Transactional
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final LikeyRepository likeyRepository;
@@ -22,6 +21,7 @@ public class ReviewService {
         this.likeyRepository = likeyRepository;
     }
 
+    @Transactional
     public long createReview(ReviewForm reviewForm, String userId) {
         Review review = Review.builder()
                 .score(reviewForm.getScore())
@@ -65,4 +65,11 @@ public class ReviewService {
         return null;
     }
 
+    public List<Review> findReviews(ReviewSearchForm reviewSearchForm) {
+        return reviewRepository.findAllByWorkoutIdAndTrainerId(
+                reviewSearchForm.getKeyword()
+                , reviewSearchForm.getWorkoutId()
+                , reviewSearchForm.getOrderby()
+        );
+    }
 }

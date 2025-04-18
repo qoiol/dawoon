@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
 
-        //2 토큰 O and 유저 정보 x
+        //2 토큰 O
 
         //2-2 유저 정보 x
         String tokenUserId = JwtTokenUtils.userId(token.getValue(), key);
@@ -94,7 +94,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         //2-3 유효
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                user, null, List.of(new SimpleGrantedAuthority(user.getUserType()))
+                user, null, List.of(new SimpleGrantedAuthority(user.getUserType()), new SimpleGrantedAuthority(user.getId()))
         );
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         log.info("인증 객체: {}", SecurityContextHolder.getContext().getAuthentication());

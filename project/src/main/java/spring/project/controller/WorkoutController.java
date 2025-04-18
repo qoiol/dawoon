@@ -37,13 +37,13 @@ public class WorkoutController {
     public String getAllWorkoutList(Model model){
         List<Workout> workoutList = workoutService.getAllWorkoutList();
 
-        if(workoutList.isEmpty()){ //운동 리스트가 비어있으면 에러페이지로
-            return "/workout/workoutError";
-        }
-        else{
-            model.addAttribute("workoutList",workoutList);
-            return "/workout/workoutList";
-        }
+//        if(workoutList.isEmpty()){ //운동 리스트가 비어있으면 에러페이지로
+//            return "workout/workoutError";
+//        }
+//        else{
+            model.addAttribute("workoutList", workoutList);
+            return "workout/workoutList";
+//        }
     }
 
     //운동 추가 폼으로 이동하는 메소드 // 됨
@@ -59,7 +59,6 @@ public class WorkoutController {
         Optional<User> user = userService.findOne(trainerId);
 
         workout.setTrainer(User.builder().id(trainerId).build());
-        workout.setTrainerName(user.get().getName());
 
         //workoutService를 사용하여 workout에 추가
         workoutService.addWorkout(workout);

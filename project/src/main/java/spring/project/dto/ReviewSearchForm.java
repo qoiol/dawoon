@@ -1,31 +1,19 @@
 package spring.project.dto;
 
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewSearchForm {
-    private Long sworkoutid;
-    private String orderby;
+    private Long workoutId;
+    @Builder.Default
+    private String orderby = "r.postedDate";
+    @Size(max = 20, message = "20자 이내로 검색해주세요.")
     private String keyword;
-
-    public String getOrderby() {
-        return orderby;
-    }
-
-    public void setOrderby(String orderby) {
-        this.orderby = orderby;
-    }
-
-    public Long getSworkoutid() {
-        return sworkoutid;
-    }
-
-    public void setSworkoutid(Long sworkoutid) {
-        this.sworkoutid = sworkoutid;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
 }

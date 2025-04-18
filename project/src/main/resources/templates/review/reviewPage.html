@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <div class="pagination">
+    <div class="pagination" th:data-link="${reviewListResponse.url}">
         <button class="page-btn" th:if="${reviewListResponse.prevBlockFlag}" th:data-num="${reviewListResponse.pageBlockStart - 1}">&lt;</button>
         <th:block th:each="i:${#numbers.sequence(reviewListResponse.pageBlockStart, reviewListResponse.pageBlockEnd)}">
             <button th:class="${reviewListResponse.pageNo == i} ? 'page-btn active' :'page-btn'" th:data-num="${i}">[[${i}]]</button>
@@ -223,5 +223,11 @@
 </body>
 <script type="text/javascript" th:inline="javascript" th:if="${exception != null}">
     confirm([[${exception}]])
+</script>
+<script>
+    const link = document.querySelector(".pagination").getAttribute("data-link");
+    document.querySelectorAll(".page-btn").forEach((value) => {value.addEventListener("click", (e) => {
+        location.href = link + e.target.getAttribute("data-num");
+    })});
 </script>
 </html>

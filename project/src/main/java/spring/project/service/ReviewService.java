@@ -74,6 +74,7 @@ public class ReviewService {
         return null;
     }
 
+    @Transactional
     public ReviewListResponse findReviews(ReviewListRequest reviewListRequest) {
         List<Review> reviewList = reviewRepository.findReviewsPage(
                 reviewListRequest.getKeyword()
@@ -85,6 +86,15 @@ public class ReviewService {
                 , reviewListRequest.getWorkoutId()
                 , reviewListRequest.getOrderby()
         );
-        return new ReviewListResponse(reviewList, reviewListRequest.getPageNo(), count, pageSize, pageBlockSize);
+
+        StringBuilder query = new StringBuilder();
+        query.append("/review?keyword=");
+        if (reviewListRequest.getKeyword() != null) query.append(reviewListRequest.getKeyword());
+        query.append("&workoutId=");
+        if (reviewListRequest.getWorkoutId() != null) query.append(reviewListRequest.getWorkoutId());
+        query.append("&orderby=").append(reviewListRequest.getOrderby())
+                .append("&pageNo=");
+
+        return new ReviewListResponse(reviewList, reviewListRequest.getPageNo(), count, pageSize, pageBlockSize, query.toString());
     }
 }

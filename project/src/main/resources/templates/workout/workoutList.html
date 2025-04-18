@@ -81,7 +81,7 @@
             <span class="col-10 text-left" th:text="'운동 종류 : ' + ${workout.workoutType}"></span>
             <span class="col-10 text-left" style="color: green;"
                   th:text="'( 난이도 : ' + ${workout.workoutDifficulty} + ' )'"></span>
-            <span class="col-10 text-left" th:text="'담당 강사 : ' + ${workout.trainerName}"></span>
+            <span class="col-10 text-left" th:text="'담당 강사 : ' + ${workout.trainer.name}"></span>
 
             <span class="col-10">
                 <a onclick="return confirm('신청이 완료되었습니다. 마이페이지에서 확인하세요.')" class="btn btn-primary"

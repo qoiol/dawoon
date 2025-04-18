@@ -17,6 +17,10 @@ public class Workout {
     @ManyToOne
     @JoinColumn(name = "trainerId")
     private User trainer;
-    private String trainerName;
     private String workoutName;
+
+    @Override
+    public String toString() {
+        return workoutName + "-" + trainer.getName();
+    }
 }

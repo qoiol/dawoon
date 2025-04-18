@@ -2,17 +2,14 @@ package spring.project.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import spring.project.domain.Reservation;
 
 import java.util.List;
 
-@Repository
 @Transactional
 public class JpaReservationRepository implements ReservationRepository{
 
-    @PersistenceContext
     private final EntityManager em;
 
     public JpaReservationRepository(EntityManager em){

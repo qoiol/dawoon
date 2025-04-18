@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>리뷰</title>
+    <link rel="stylesheet" href="/css/custom.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -22,24 +23,24 @@
     <form method="get" th:action="@{/review}" class="form-inline mt-3">
         <select name="workoutId" class="form-control mx-1 mt-2">
             <option th:value="${null}">전체</option>
-            <option th:each="w : ${wList}" th:selected="${w.workoutId eq workoutId}"
+            <option th:each="w : ${wList}" th:selected="${w.workoutId eq reviewListRequest.workoutId}"
                     th:value="${w.workoutId}" th:text="${w.toString()}"/>
         </select>
         <select name="orderby" class="form-control mx-1 mt-2">
             <option value="r.postedDate">최신순</option>
-            <option value="r.likeCount" th:selected="${orderby eq 'r.likeCount'}">추천순</option>
+            <option value="r.likeCount" th:selected="${reviewListRequest.orderby eq 'r.likeCount'}">추천순</option>
         </select>
         <input type="text" name="keyword" class="form-control mx-1 mt-2" placeholder="내용을 입력하세요"
-               th:value="${keyword}">
+               th:value="${reviewListRequest.keyword}">
         <button type="submit" class="btn btn-primary mx-1 mt-2">검색</button>
         <a class="btn btn-primary mx-1 mt-2" data-toggle="modal" href="#registerModal">등록하기</a>
     </form>
-    <div class="col-lg-12 text-center text-danger" th:if="${reviewList.size() == 0}">
+    <div class="col-lg-12 text-center text-danger" th:if="${reviewListResponse.reviewList.size() == 0}">
         <br>
         검색 결과가 없습니다.
     </div>
 
-    <div class="card bg-light mt-3" th:each="review : ${reviewList}">
+    <div class="card bg-light mt-3" th:each="review : ${reviewListResponse.reviewList}">
         <div class="card-header bg-light">
             <div class="row">
                 <div class="col-8 text-left">
@@ -58,7 +59,7 @@
                          class="wrap-star">
 
                         <div class='star-rating'>
-                            <span th:style="${'width='+review.score*20 +'%'}"></span>
+                            <span th:style="${'width:'+review.score*20 +'%'}"></span>
                         </div>
                     </div>
                 </div>
@@ -84,6 +85,14 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="pagination">
+        <button class="page-btn" th:if="${reviewListResponse.prevBlockFlag}" th:data-num="${reviewListResponse.pageBlockStart - 1}">&lt;</button>
+        <th:block th:each="i:${#numbers.sequence(reviewListResponse.pageBlockStart, reviewListResponse.pageBlockEnd)}">
+            <button th:class="${reviewListResponse.pageNo == i} ? 'page-btn active' :'page-btn'" th:data-num="${i}">[[${i}]]</button>
+        </th:block>
+        <button class="page-btn" th:if="${reviewListResponse.nextBlockFlag}" th:data-num="${reviewListResponse.pageBlockEnd + 1}">&gt;</button>
     </div>
 </section>
 

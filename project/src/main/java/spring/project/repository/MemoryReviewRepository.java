@@ -35,6 +35,11 @@ public class MemoryReviewRepository implements ReviewRepository {
     }
 
     @Override
+    public List<Review> findReviewsPage(String keyword, Long workoutId, String orderby, Integer pageNo) {
+        return List.of();
+    }
+
+    @Override
     public List<Review> findAll() {
         return null;
     }
@@ -42,5 +47,10 @@ public class MemoryReviewRepository implements ReviewRepository {
     @Override
     public void deleteById(Long id) {
         store.remove(id);
+    }
+
+    @Override
+    public int count(String keyword, Long workoutId, String orderby) {
+        return 0;
     }
 }

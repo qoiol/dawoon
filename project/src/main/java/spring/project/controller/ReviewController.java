@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.project.domain.*;
 import spring.project.dto.ReportForm;
 import spring.project.dto.ReviewForm;
-import spring.project.dto.ReviewSearchForm;
+import spring.project.dto.ReviewListRequest;
 import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
 import spring.project.service.WorkoutService;
@@ -36,15 +36,15 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public String reviewPage(Model model, @Valid ReviewSearchForm reviewSearchForm, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String reviewPage(Model model, @Valid ReviewListRequest reviewListRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
         if(bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("error", bindingResult.getAllErrors().get(0).getDefaultMessage());
             return "redirect:/review";
         }
 
-        List<Review> review = reviewService.findReviews(reviewSearchForm);
-        model.addAttribute("reviewList", review);
+        model.addAttribute("reviewListResponse", reviewService.findReviews(reviewListRequest));
+        model.addAttribute("reviewListRequest", reviewListRequest);
         model.addAttribute("wList", workoutService.getAllWorkoutList());
 
         return "/review/reviewPage";

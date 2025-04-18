@@ -35,7 +35,7 @@ public class JpaReviewRepository implements ReviewRepository{
 
     @Override
     public List<Review> findAllByWorkoutIdAndTrainerId(String keyword, Long workoutId, String orderby) {
-        StringBuilder query = new StringBuilder("select r from review r where r.id is not null");
+        StringBuilder query = new StringBuilder("select r from review r join fetch r.user join fetch r.workout where r.id is not null");
 
         if(keyword != null && !keyword.isEmpty())
             query.append(" and ((r.title Like '%").append(keyword).append("%') OR (r.content Like '%").append(keyword).append("%'))");

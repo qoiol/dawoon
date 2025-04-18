@@ -56,7 +56,7 @@ public class ReservationController {
         reservation.setWorkoutName(workout.get().getWorkoutName());
         reservation.setWorkoutType(workout.get().getWorkoutType());
         reservation.setWorkoutDifficulty(workout.get().getWorkoutDifficulty());
-        reservation.setStatus("진행중");
+        reservation.setStatus("완료");
 
         //새 예약을 등록
         reservationService.add(reservation);

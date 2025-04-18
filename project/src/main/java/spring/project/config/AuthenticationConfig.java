@@ -38,6 +38,7 @@ public class AuthenticationConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
@@ -46,10 +47,10 @@ public class AuthenticationConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/main")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/user/create")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/workout/list**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/workout/list")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/user/logout")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/admin**")).hasRole("admin")
-                                .requestMatchers(new AntPathRequestMatcher("/workout/**")).hasAnyRole("admin", "trainer")
+                                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("admin")
+                                .requestMatchers(new AntPathRequestMatcher("/workout/**")).hasAnyRole("admin", "trainer", "user")
                                 .anyRequest().authenticated()
 //                                .hasAnyRole("user", "trainer")
                 )

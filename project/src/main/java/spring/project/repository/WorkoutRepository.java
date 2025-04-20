@@ -1,10 +1,5 @@
 package spring.project.repository;
 
-import org.hibernate.jdbc.Work;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 import spring.project.domain.Workout;
 
 import java.util.List;

@@ -22,6 +22,10 @@ public class JwtTokenUtils {
         return extractClaims(token, key).get("userId", String.class);
     }
 
+    public static String role(String token, String key) {
+        return extractClaims(token, key).get("role", String.class);
+    }
+
     public static boolean isExpired(String token, String key) {
         try {
             Date expiration = extractClaims(token, key).getExpiration();
@@ -36,9 +40,10 @@ public class JwtTokenUtils {
                 .build().parseClaimsJws(token).getBody();
     }
 
-    public static String generateToken(String userId, String key, long expiredTimeMs) {
+    public static String generateToken(String userId, String userType, String key, long expiredTimeMs) {
         Claims claims = Jwts.claims();
         claims.put("userId", userId);
+        claims.put("role", userType);
 
         Date now = new Date();
         return Jwts.builder()

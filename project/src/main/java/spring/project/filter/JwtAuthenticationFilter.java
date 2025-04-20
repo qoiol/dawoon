@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final Set<String> uri = Set.of(
             "/user/login", "/user/create", "/main", "/user/logout", "/");
     private final Set<String> prefix = Set.of(
-            "/favicon.ico",
+            "/favicon.",
             "/css/",
             "/js/",
             "/images/",
@@ -64,38 +64,38 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         Cookie token = getToken("token", request);
         String newToken;
-        String userId = loginFlag(request.getSession()) ? request.getSession().getAttribute("userId").toString() : "";
+        String userId = request.getSession().getAttribute("userId").toString();
+        String userType = request.getSession().getAttribute("userType").toString();
 
         //1 토큰 X or 만료
         //재발급
         if (token == null || JwtTokenUtils.isExpired(token.getValue(), key)) {
-            log.error("token is expired -> regenerate");
-            newToken = JwtTokenUtils.generateToken(userId, key, expiredTimeMs);
+
+            newToken = JwtTokenUtils.generateToken(userId, userType, key, expiredTimeMs);
             token = JwtTokenUtils.addCookie("token", newToken, response);
+
+            log.error("token is expired -> regenerate");
         }
 
-
-        //2 토큰 O
-
-        //2-2 유저 정보 x
+        //2 유저 정보 x
         String tokenUserId = JwtTokenUtils.userId(token.getValue(), key);
         User user = userService.findOne(tokenUserId).orElse(null);
         if (!userId.equals(tokenUserId) || user == null) {
-            log.error("token userid inconsistency");
+            log.error("userinfo does not match");
             //토큰 정보 불일치 -> 로그아웃
-            request.getSession().removeAttribute("userId");
-            //로그인 화면으로 이동
-            moveToLogin(request, response);
+            response.sendRedirect("/user/logout?action=login&detail=match");
             return;
         }
 
 
-        //2-3 유효
+        //3 유효
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                user, null, List.of(new SimpleGrantedAuthority(user.getUserType()), new SimpleGrantedAuthority(user.getId()))
+                user, null, List.of(new SimpleGrantedAuthority(user.getUserType()))
         );
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
         log.info("인증 객체: {}", SecurityContextHolder.getContext().getAuthentication());
+
         filterChain.doFilter(request, response);
     }
 
@@ -120,6 +120,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     //로그인 여부 반환
     private boolean loginFlag(HttpSession session) {
-        return session.getAttribute("userId") != null;
+        return (session.getAttribute("userId") != null && session.getAttribute("userType") != null);
     }
 }

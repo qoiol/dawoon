@@ -73,6 +73,6 @@ public class UserService {
         );
 
         //토큰 생성
-        return JwtTokenUtils.generateToken(loginRequest.getId(), secretKey, expiredTimeMs);
+        return JwtTokenUtils.generateToken(loginRequest.getId(), loginRequest.getUserType(), secretKey, expiredTimeMs);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.project.dto.UserJoinRequest;
 import spring.project.dto.LoginRequest;
 import spring.project.service.UserService;
@@ -60,10 +61,15 @@ public class UserController {
     }
 
     @GetMapping("/user/logout") //로그아웃 -> 메인페이지로
-    public String logout(HttpSession httpSession, HttpServletResponse response){
+    public String logout(HttpSession httpSession, HttpServletResponse response, @RequestParam(required = false) String action){
         httpSession.removeAttribute("userId");
         httpSession.removeAttribute("userType");
         JwtTokenUtils.removeCookie("token", response);
+
+        if(action != null && action.equals("login")) {
+            return "redirect:/user/login";
+        }
+
         return "redirect:/";
     }
 
@@ -73,14 +79,23 @@ public class UserController {
     }
 
     @PostMapping("/user/create") //회원가입
-    public String create(@Valid UserJoinRequest userJoinRequest, BindingResult bindingResult, Model model){
+    public String create(@Valid UserJoinRequest userJoinRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("id", userJoinRequest.getId());
+            redirectAttributes.addFlashAttribute("password", userJoinRequest.getPassword());
+            redirectAttributes.addFlashAttribute("email", userJoinRequest.getEmail());
+            redirectAttributes.addFlashAttribute("name", userJoinRequest.getName());
+            redirectAttributes.addFlashAttribute("userType", userJoinRequest.getUserType());
+
+            redirectAttributes.addFlashAttribute("message", bindingResult.getAllErrors().get(0));
+            return "redirect:/user/create";
+        }
 
         try{
             userService.join(userJoinRequest);
         } catch (Exception e){
-            model.addAttribute("exception", true);
-            model.addAttribute("message", e.getMessage());
-            return "/user/create";
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+            return "redirect:/user/create";
         }
 
         return "redirect:/";

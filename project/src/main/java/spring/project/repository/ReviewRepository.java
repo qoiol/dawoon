@@ -6,7 +6,6 @@ import spring.project.domain.Review;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface ReviewRepository {
     Review save(Review review);
     long update(Review review);

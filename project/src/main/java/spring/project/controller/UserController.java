@@ -80,14 +80,14 @@ public class UserController {
 
     @PostMapping("/user/create") //회원가입
     public String create(@Valid UserJoinRequest userJoinRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("id", userJoinRequest.getId());
-            redirectAttributes.addFlashAttribute("password", userJoinRequest.getPassword());
-            redirectAttributes.addFlashAttribute("email", userJoinRequest.getEmail());
-            redirectAttributes.addFlashAttribute("name", userJoinRequest.getName());
-            redirectAttributes.addFlashAttribute("userType", userJoinRequest.getUserType());
+        redirectAttributes.addFlashAttribute("id", userJoinRequest.getId());
+        redirectAttributes.addFlashAttribute("password", userJoinRequest.getPassword());
+        redirectAttributes.addFlashAttribute("email", userJoinRequest.getEmail());
+        redirectAttributes.addFlashAttribute("name", userJoinRequest.getName());
+        redirectAttributes.addFlashAttribute("userType", userJoinRequest.getUserType());
 
-            redirectAttributes.addFlashAttribute("message", bindingResult.getAllErrors().get(0));
+        if(bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("message", bindingResult.getAllErrors().get(0).getDefaultMessage());
             return "redirect:/user/create";
         }
 

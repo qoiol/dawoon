@@ -30,8 +30,6 @@ public class MainController {
         model.addAttribute("ex", ex);
         model.addAttribute("tr", tr);
 
-        model.addAttribute("userId", model.getAttribute("userId"));
-
         return "main";
     }
 }

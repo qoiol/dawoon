@@ -8,9 +8,9 @@ import spring.project.domain.Likey;
 import spring.project.domain.Review;
 import spring.project.domain.User;
 import spring.project.domain.Workout;
-import spring.project.dto.ReviewForm;
-import spring.project.dto.ReviewListRequest;
-import spring.project.dto.ReviewListResponse;
+import spring.project.dto.request.ReviewCreateRequest;
+import spring.project.dto.request.ReviewListRequest;
+import spring.project.dto.response.ReviewListResponse;
 import spring.project.repository.LikeyRepository;
 import spring.project.repository.ReviewRepository;
 
@@ -30,15 +30,15 @@ public class ReviewService {
     private int pageBlockSize;
 
     @Transactional
-    public long createReview(ReviewForm reviewForm, String userId) {
+    public long createReview(ReviewCreateRequest reviewCreateRequest, String userId) {
         Review review = Review.builder()
-                .score(reviewForm.getScore())
-                .title(reviewForm.getTitle())
-                .content(reviewForm.getContent())
+                .score(reviewCreateRequest.getScore())
+                .title(reviewCreateRequest.getTitle())
+                .content(reviewCreateRequest.getContent())
                 .likeCount(0)
                 .postedDate(Calendar.getInstance().getTime())
                 .user(User.builder().id(userId).build())
-                .workout(Workout.builder().workoutId(reviewForm.getWorkoutId()).build())
+                .workout(Workout.builder().workoutId(reviewCreateRequest.getWorkoutId()).build())
                 .build();
 
         reviewRepository.save(review);

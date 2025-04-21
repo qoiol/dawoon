@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import spring.project.dto.UserJoinRequest;
-import spring.project.dto.LoginRequest;
+import spring.project.dto.response.LoginResponse;
+import spring.project.dto.request.UserJoinRequest;
+import spring.project.dto.request.LoginRequest;
 import spring.project.service.UserService;
 import spring.project.util.JwtTokenUtils;
 
@@ -38,11 +39,11 @@ public class UserController {
     @PostMapping("/user/login") //로그인
     public String login(HttpSession session, LoginRequest loginRequest, HttpServletResponse response,
                         @RequestParam(required = false, defaultValue = "") String referer) {
-        String token;
+        LoginResponse loginResponse;
         String redirectUri = (!referer.isEmpty() ? URLDecoder.decode(referer, StandardCharsets.UTF_8):"/");
         try{
-            token = userService.login(loginRequest);
-            JwtTokenUtils.addCookie("token", token, response);
+            loginResponse = userService.login(loginRequest, response);
+            JwtTokenUtils.addCookie("token", loginResponse.getToken(), response);
         } catch (Exception e){
             try {
                 response.setContentType("text/html;charset=utf-8");
@@ -53,8 +54,8 @@ public class UserController {
             return "/user/login";
         }
 
-        session.setAttribute("userId", loginRequest.getId());
-        session.setAttribute("userType", loginRequest.getUserType());
+        session.setAttribute("userId", loginResponse.getUser().getId());
+        session.setAttribute("userType", loginResponse.getUser().getUserType());
         session.setMaxInactiveInterval(3600);
 
         return "redirect:"+redirectUri;

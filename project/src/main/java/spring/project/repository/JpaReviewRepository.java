@@ -50,6 +50,16 @@ public class JpaReviewRepository implements ReviewRepository{
     }
 
     @Override
+    public List<Review> findAll() {
+        return em.createQuery("select r from review r", Review.class).getResultList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        em.remove(em.find(Review.class, id));
+    }
+
+    @Override
     public List<Review> findReviewsPage(String keyword, Long workoutId, String orderby, Integer pageNo) {
         StringBuilder query = new StringBuilder("select r from review r join fetch r.user join fetch r.workout where r.id is not null");
 
@@ -63,16 +73,6 @@ public class JpaReviewRepository implements ReviewRepository{
                 .setFirstResult((pageNo-1) * pageSize)
                 .setMaxResults(pageSize)
                 .getResultList();
-    }
-
-    @Override
-    public List<Review> findAll() {
-        return em.createQuery("select r from review r", Review.class).getResultList();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        em.remove(em.find(Review.class, id));
     }
 
     @Override

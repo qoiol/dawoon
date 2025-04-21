@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.project.domain.*;
-import spring.project.dto.ReportForm;
-import spring.project.dto.ReviewForm;
-import spring.project.dto.ReviewListRequest;
+import spring.project.dto.request.ReportRequest;
+import spring.project.dto.request.ReviewCreateRequest;
+import spring.project.dto.request.ReviewListRequest;
 import spring.project.service.ReportService;
 import spring.project.service.ReviewService;
 import spring.project.service.WorkoutService;
-
-import java.util.List;
 
 @Log4j2
 @Controller
@@ -51,9 +49,9 @@ public class ReviewController {
     }
 
     @PostMapping("/review/create")
-    public String createReview(@Valid ReviewForm reviewForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession session) {
+    public String createReview(@Valid ReviewCreateRequest reviewCreateRequest, BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession session) {
         try {
-            reviewService.createReview(reviewForm, session.getAttribute("userId").toString());
+            reviewService.createReview(reviewCreateRequest, session.getAttribute("userId").toString());
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "리뷰 등록 실패. 다시 시도해주세요.");
         }
@@ -73,12 +71,12 @@ public class ReviewController {
     }
 
     @PostMapping("/review/report")
-    public String report(ReportForm reportForm, HttpSession session) {
+    public String report(ReportRequest reportRequest, HttpSession session) {
         //신고 처리
         Report report = new Report();
-        report.setReviewId(reportForm.getReviewId());
+        report.setReviewId(reportRequest.getReviewId());
         report.setUserId(session.getAttribute("userId").toString());
-        report.setReportReason(reportForm.getReportReason());
+        report.setReportReason(reportRequest.getReportReason());
         reportService.create(report);
         return "redirect:/review";
     }

@@ -91,8 +91,6 @@ public class WorkoutController {
     public String searchWorkout(@RequestParam("workoutDifficulty") String workoutDifficulty,
                                 @RequestParam("workoutType") String workoutType, Model model) {
         //keyword를 사용하여 검색한 리스트를 반환
-        System.out.println(workoutDifficulty);
-        System.out.println(workoutType);
         List<Workout> workoutList = workoutService.findByKeyword(workoutDifficulty, workoutType);
 
         //System.out.println(workoutList.get(0).getWorkoutType());

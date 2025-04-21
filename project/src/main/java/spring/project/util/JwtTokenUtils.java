@@ -36,7 +36,7 @@ public class JwtTokenUtils {
     }
 
     private static Claims extractClaims(String token, String key) throws ExpiredJwtException {
-        return Jwts.parserBuilder().setSigningKey(getKey(key))
+        return Jwts.parserBuilder().setSigningKey(getKey(key)).setAllowedClockSkewSeconds(1)
                 .build().parseClaimsJws(token).getBody();
     }
 

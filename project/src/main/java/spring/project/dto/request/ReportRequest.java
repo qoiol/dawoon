@@ -1,6 +1,6 @@
-package spring.project.dto;
+package spring.project.dto.request;
 
-public class ReportForm {
+public class ReportRequest {
     private String reportReason;
     private long reviewId;
 

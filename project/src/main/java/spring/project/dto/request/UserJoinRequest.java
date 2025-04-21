@@ -1,4 +1,4 @@
-package spring.project.dto;
+package spring.project.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

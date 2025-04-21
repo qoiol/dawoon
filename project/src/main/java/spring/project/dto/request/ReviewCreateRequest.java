@@ -1,4 +1,4 @@
-package spring.project.dto;
+package spring.project.dto.request;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewForm {
+public class ReviewCreateRequest {
     @NotBlank(message = "제목을 20자 이내로 입력해주세요.")
     @Size(min=1, max=20, message = "제목을 20자 이내로 입력해주세요.")
     String title;

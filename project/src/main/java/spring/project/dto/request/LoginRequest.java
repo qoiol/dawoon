@@ -1,4 +1,4 @@
-package spring.project.dto;
+package spring.project.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,5 +8,4 @@ import lombok.Data;
 public class LoginRequest {
     private String id;
     private String password;
-    private String userType;
 }
